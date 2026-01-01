@@ -1,10 +1,12 @@
 <!-- For God so loved the world that He gave His only begotten Son... -->
 <script lang="ts">
 	import '../app.css';
+	import FeedbackBubbleChirho from '$lib/components/FeedbackBubbleChirho.svelte';
 
 	let { children, data } = $props();
 
 	const userChirho = $derived(data?.userChirho);
+	const turnstileSiteKeyChirho = $derived(data?.turnstileSiteKeyChirho || '');
 
 	// Mobile menu state
 	let mobileMenuOpenChirho = $state(false);
@@ -249,12 +251,23 @@
 					</svg>
 					Support Us
 				</a>
-				<p class="text-slate-500 text-sm font-medium">
-					JESUS CHRIST IS LORD
-				</p>
+				<div class="flex items-center gap-3 text-slate-500 text-sm">
+					<p class="font-medium">JESUS CHRIST IS LORD</p>
+					<span class="text-slate-700">|</span>
+					<a href="https://perffection.com" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-colors" title="Perffection - Faith Excellence">fe</a>
+					<span class="text-slate-700">|</span>
+					<a href="https://lovejesus.software" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-colors" title="loveJesus Software">loveJesus</a>
+					<span class="text-slate-700">|</span>
+					<a href="http://jesusfilm.org/watch/jesus.html/english.html" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors text-lg" title="Watch the Jesus Film">☧</a>
+				</div>
 			</div>
 		</div>
 	</footer>
+
+	<!-- Feedback Bubble -->
+	{#if turnstileSiteKeyChirho}
+		<FeedbackBubbleChirho {userChirho} {turnstileSiteKeyChirho} />
+	{/if}
 </div>
 
 <style>
