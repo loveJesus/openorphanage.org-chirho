@@ -499,57 +499,80 @@
 </section>
 
 <!-- For Donors -->
-<section class="py-24 bg-gradient-to-br from-slate-950 via-teal-950/20 to-slate-950 relative overflow-hidden">
-	<!-- Caring hands background -->
-	<div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full opacity-10">
-		<img src="/caring-hands-chirho.png" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+<section class="py-24 relative overflow-hidden">
+	<!-- Full background image with overlay -->
+	<div class="absolute inset-0">
+		<img src="/donor-bg-children-chirho.png" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+		<div class="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/85 to-slate-950/95"></div>
 	</div>
+
 	<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
-			<div class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 px-4 py-2 rounded-full text-sm mb-6">
-				<span class="w-2 h-2 bg-amber-400 rounded-full"></span>
+			<div class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 px-4 py-2 rounded-full text-sm mb-6 backdrop-blur-sm">
+				<span class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
 				For Donors & Sponsors
 			</div>
 
-			<h2 class="text-3xl md:text-4xl font-bold mb-4">
+			<h2 class="text-3xl md:text-5xl font-bold mb-4">
 				See Your <span class="text-gradient-compassion">Impact</span>
 			</h2>
 
-			<p class="text-slate-400 text-lg max-w-2xl mx-auto">
+			<p class="text-slate-300 text-lg max-w-2xl mx-auto">
 				Through KingdomInvest.ing, you can support verified orphanages with complete transparency. Watch your giving make a real difference.
 			</p>
 		</div>
 
 		<div class="grid md:grid-cols-3 gap-8">
-			<div class="text-center">
-				<div class="w-16 h-16 bg-rose-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-					<span class="text-3xl">🔍</span>
+			<!-- Browse Panel -->
+			<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] card-hover">
+				<img src="/panel-search-chirho.png" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+				<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+				<div class="absolute inset-0 flex flex-col justify-end p-6">
+					<div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-4 border border-white/20">
+						<svg class="w-6 h-6 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+						</svg>
+					</div>
+					<h3 class="font-bold text-xl mb-2 text-white">Browse Verified Orphanages</h3>
+					<p class="text-slate-300 text-sm leading-relaxed">Only orphanages verified through FaithStack Trust Network appear on our platform.</p>
 				</div>
-				<h3 class="font-semibold text-lg mb-2">Browse Verified Orphanages</h3>
-				<p class="text-slate-400 text-sm">Only orphanages verified through FaithStack Trust Network appear on our platform.</p>
 			</div>
 
-			<div class="text-center">
-				<div class="w-16 h-16 bg-teal-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-					<span class="text-3xl">💝</span>
+			<!-- Give Panel -->
+			<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] card-hover">
+				<img src="/panel-give-chirho.png" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+				<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+				<div class="absolute inset-0 flex flex-col justify-end p-6">
+					<div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-4 border border-white/20">
+						<svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+						</svg>
+					</div>
+					<h3 class="font-bold text-xl mb-2 text-white">Give or Sponsor</h3>
+					<p class="text-slate-300 text-sm leading-relaxed">Give to specific needs or sponsor a child through MakingFriends.faith for ongoing support.</p>
 				</div>
-				<h3 class="font-semibold text-lg mb-2">Give or Sponsor</h3>
-				<p class="text-slate-400 text-sm">Give to specific needs or sponsor a child through MakingFriends.faith for ongoing support.</p>
 			</div>
 
-			<div class="text-center">
-				<div class="w-16 h-16 bg-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-					<span class="text-3xl">📊</span>
+			<!-- Track Panel -->
+			<div class="group relative overflow-hidden rounded-3xl aspect-[4/5] card-hover">
+				<img src="/panel-impact-chirho.png" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+				<div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent"></div>
+				<div class="absolute inset-0 flex flex-col justify-end p-6">
+					<div class="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-4 border border-white/20">
+						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+						</svg>
+					</div>
+					<h3 class="font-bold text-xl mb-2 text-white">Track Impact</h3>
+					<p class="text-slate-300 text-sm leading-relaxed">Receive regular updates showing exactly how your giving helps children flourish.</p>
 				</div>
-				<h3 class="font-semibold text-lg mb-2">Track Impact</h3>
-				<p class="text-slate-400 text-sm">Receive regular updates showing exactly how your giving helps children flourish.</p>
 			</div>
 		</div>
 
 		<div class="mt-12 text-center">
-			<a href="https://kingdominvest.ing/campaigns-chirho?category=Compassion" class="inline-flex items-center gap-2 bg-amber-500 text-slate-900 px-6 py-3 rounded-lg font-bold hover:bg-amber-400 transition-colors">
+			<a href="https://kingdominvest.ing/campaigns-chirho?category=Compassion" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 px-8 py-4 rounded-xl font-bold hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/25">
 				Support Orphanages on KingdomInvest.ing
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
 				</svg>
 			</a>
