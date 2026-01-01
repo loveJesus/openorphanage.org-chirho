@@ -42,7 +42,7 @@ EMAIL_ADMIN_CHIRHO = "admin.fe@openorphanage.org"
 SITE_URL_CHIRHO = "https://openorphanage.org"
 SITE_NAME_CHIRHO = "OpenOrphanage"
 # Turnstile site key (public - get from Cloudflare dashboard)
-TURNSTILE_SITE_KEY_CHIRHO = "0x4AAAAAABOuFJKGBcxhGmXa"
+TURNSTILE_SITE_KEY_CHIRHO = "0x4AAAAAACKFOdmOv6U6oTgY"
 
 # Note: Set these secrets via wrangler secret put:
 # wrangler secret put MASTER_2SMTP_API_KEY_CHIRHO
