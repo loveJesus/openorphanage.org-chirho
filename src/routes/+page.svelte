@@ -2,6 +2,32 @@
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
 <script lang="ts">
+	let { data } = $props();
+
+	const featuredOrphanagesChirho = $derived(data.featuredOrphanagesChirho || []);
+	const urgentNeedsChirho = $derived(data.urgentNeedsChirho || []);
+	const statsChirho = $derived(data.statsChirho || { orphanagesChirho: 0, childrenChirho: 0, needsChirho: 0 });
+
+	function getCategoryIconChirho(categoryChirho: string) {
+		const iconsChirho: Record<string, string> = {
+			food: '🍚', medical: '💊', education: '📚', clothing: '👕',
+			infrastructure: '🏗️', staff: '👨‍👩‍👧', utilities: '💡', transportation: '🚐', other: '📦'
+		};
+		return iconsChirho[categoryChirho] || '📦';
+	}
+
+	function formatCurrencyChirho(amountChirho: number, currencyChirho: string) {
+		return new Intl.NumberFormat('en-US', {
+			style: 'currency', currency: currencyChirho || 'USD',
+			minimumFractionDigits: 0, maximumFractionDigits: 0
+		}).format(amountChirho);
+	}
+
+	function getProgressChirho(raisedChirho: number, neededChirho: number) {
+		if (neededChirho === 0) return 100;
+		return Math.min(100, Math.round((raisedChirho / neededChirho) * 100));
+	}
+
 	const journeyStepsChirho = [
 		{
 			numberChirho: '1',
@@ -134,6 +160,22 @@
 			</a>
 		</div>
 
+		<!-- Live Stats -->
+		<div class="grid md:grid-cols-3 gap-8 max-w-2xl mx-auto mb-12">
+			<div class="text-center">
+				<div class="text-4xl font-bold text-rose-400 mb-1">{statsChirho.orphanagesChirho}</div>
+				<div class="text-slate-400 text-sm">Orphanages</div>
+			</div>
+			<div class="text-center">
+				<div class="text-4xl font-bold text-teal-400 mb-1">{statsChirho.childrenChirho}</div>
+				<div class="text-slate-400 text-sm">Children</div>
+			</div>
+			<div class="text-center">
+				<div class="text-4xl font-bold text-amber-400 mb-1">{statsChirho.needsChirho}</div>
+				<div class="text-slate-400 text-sm">Active Needs</div>
+			</div>
+		</div>
+
 		<!-- Scripture -->
 		<blockquote class="text-slate-400 italic max-w-2xl mx-auto">
 			"Religion that is pure and undefiled before God the Father is this: to visit orphans and widows in their affliction."
@@ -207,6 +249,98 @@
 		</div>
 	</div>
 </section>
+
+<!-- Urgent Needs -->
+{#if urgentNeedsChirho.length > 0}
+<section class="py-24 bg-gradient-to-b from-slate-900 to-slate-950">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="flex items-center justify-between mb-12">
+			<div>
+				<span class="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-full px-4 py-1 text-red-400 text-sm mb-4">
+					🚨 Urgent
+				</span>
+				<h2 class="text-3xl md:text-4xl font-bold">
+					<span class="text-gradient-compassion">Immediate</span> Needs
+				</h2>
+			</div>
+			<a href="/orphanages-chirho" class="hidden md:inline-flex text-rose-400 hover:text-rose-300">
+				View all →
+			</a>
+		</div>
+
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+			{#each urgentNeedsChirho as needChirho}
+				{@const progressChirho = getProgressChirho(needChirho.amountRaisedChirho, needChirho.amountNeededChirho)}
+				<div class="bg-slate-800/50 border border-red-500/30 rounded-2xl p-6 card-hover">
+					<div class="flex items-center gap-3 mb-4">
+						<span class="text-2xl">{getCategoryIconChirho(needChirho.categoryChirho)}</span>
+						<div>
+							<h3 class="font-bold">{needChirho.titleChirho}</h3>
+							<p class="text-slate-500 text-sm">{needChirho.orphanageNameChirho}</p>
+						</div>
+					</div>
+					<div class="mb-4">
+						<div class="flex justify-between text-sm mb-1">
+							<span class="text-slate-400">{progressChirho}% funded</span>
+							<span class="text-rose-400 font-medium">{formatCurrencyChirho(needChirho.amountNeededChirho - needChirho.amountRaisedChirho, needChirho.currencyChirho)} needed</span>
+						</div>
+						<div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+							<div class="h-full bg-gradient-to-r from-rose-500 to-teal-500 rounded-full" style="width: {progressChirho}%"></div>
+						</div>
+					</div>
+					<a href="https://kingdominvest.ing/need/{needChirho.idChirho}" class="block text-center bg-gradient-to-r from-rose-500 to-pink-500 text-white py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
+						Donate Now
+					</a>
+				</div>
+			{/each}
+		</div>
+	</div>
+</section>
+{/if}
+
+<!-- Featured Orphanages -->
+{#if featuredOrphanagesChirho.length > 0}
+<section class="py-24 bg-slate-950">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="text-center mb-12">
+			<h2 class="text-3xl md:text-4xl font-bold mb-4">
+				<span class="text-gradient-trust">Featured</span> Orphanages
+			</h2>
+			<p class="text-slate-400 text-lg">Verified organizations making a difference</p>
+		</div>
+
+		<div class="grid md:grid-cols-3 gap-8">
+			{#each featuredOrphanagesChirho as orphanageChirho}
+				<a href="/orphanages-chirho/{orphanageChirho.idChirho}" class="group bg-slate-800/50 border border-slate-700 rounded-2xl overflow-hidden hover:border-rose-500/50 transition-all card-hover">
+					<div class="aspect-video bg-gradient-to-br from-rose-500/20 to-teal-500/20 relative">
+						{#if orphanageChirho.primaryPhotoUrlChirho}
+							<img src={orphanageChirho.primaryPhotoUrlChirho} alt={orphanageChirho.nameChirho} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+						{:else}
+							<div class="w-full h-full flex items-center justify-center"><span class="text-5xl opacity-50">🏠</span></div>
+						{/if}
+						<div class="absolute top-3 right-3">
+							<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium bg-green-500/20 text-green-400 border border-green-500/30">✓ Verified</span>
+						</div>
+					</div>
+					<div class="p-6">
+						<h3 class="font-bold text-lg mb-2 group-hover:text-rose-400 transition-colors">{orphanageChirho.nameChirho}</h3>
+						<p class="text-slate-400 text-sm mb-2">📍 {orphanageChirho.regionChirho ? `${orphanageChirho.regionChirho}, ` : ''}{orphanageChirho.countryChirho}</p>
+						{#if orphanageChirho.shortDescriptionChirho}
+							<p class="text-slate-300 text-sm line-clamp-2">{orphanageChirho.shortDescriptionChirho}</p>
+						{/if}
+					</div>
+				</a>
+			{/each}
+		</div>
+
+		<div class="text-center mt-12">
+			<a href="/orphanages-chirho" class="inline-flex bg-slate-800 text-white px-8 py-3 rounded-xl font-medium hover:bg-slate-700 transition-colors border border-slate-700">
+				Browse All Orphanages →
+			</a>
+		</div>
+	</div>
+</section>
+{/if}
 
 <!-- Features -->
 <section class="py-24 bg-gradient-to-br from-slate-950 via-rose-950/20 to-slate-950">

@@ -1,10 +1,40 @@
 # For God so loved the world, that He gave His only begotten Son, that all who believe in Him should not perish but have everlasting life. — John 3:16
 
-# OpenOrphanage - Transparent Global Orphan Care Administration
+# OpenOrphanage.org — Chirho AI Agent Instructions
 
 > **The Gospel:** Jesus Christ, the Son of God, died for our sins, was buried, and rose again on the third day according to the Scriptures. Whoever believes in Him shall not perish but have eternal life. (1 Corinthians 15:3-4, John 3:16)
 
 > *"Religion that is pure and undefiled before God the Father is this: to visit orphans and widows in their affliction."* — James 1:27
+
+---
+
+## License
+
+This work is licensed under the **MIT License**.
+
+```
+MIT License
+
+Copyright (c) 2024
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 ---
 
@@ -70,343 +100,380 @@ OpenOrphanage is part of a holistic FaithStack ecosystem that walks with childre
 
 ---
 
-## Vision
+## 1. The Prime Directive: Source of Truth & Synchronization
 
-> *"I will not leave you as orphans; I will come to you."* — John 14:18 (Jesus speaking)
+### 1.1 The Hierarchy
 
-OpenOrphanage exists because:
-- **Orphans are precious to God** — Scripture is clear that caring for orphans is central to true religion
-- **Transparency builds trust** — Donors give more when they can see exactly where funds go
-- **Technology can serve love** — Digital tools can amplify human compassion, not replace it
-- **The journey doesn't end at 18** — We're building a pipeline to flourishing, not just survival
+The **Spec** (`spec_chirho/`) is the ultimate source of truth. All other artifacts derive from it.
+
+```
+spec_chirho/                          ← ULTIMATE SOURCE OF TRUTH
+    │
+    ├── 01_DATA_MODEL_CHIRHO/         ← Data definitions (YAML files)
+    │       ↓ generates
+    │   ├── schema_chirho.ts (Drizzle)
+    │   ├── types_chirho/*.ts
+    │   └── *.HUMAN_CHIRHO.md (readable docs)
+    │
+    ├── 03_ROUTES_CHIRHO.md           ← Route definitions
+    │       ↓ generates
+    │   └── src/routes/**
+    │
+    └── 04_API_CHIRHO.md              ← API contracts (must align with 03)
+            ↓ generates
+        └── openapi_chirho.yaml
+```
+
+### 1.2 File Authority Classification
+
+Files fall into three categories:
+
+| Category | Description | Examples | Edit Policy |
+|----------|-------------|----------|-------------|
+| **Source** | Canonical definitions | `spec_chirho/**/*.yaml`, `spec_chirho/**/*.md` | Edit here first |
+| **Generated** | Derived from Source | `schema_chirho.ts`, `types_chirho/*.ts`, `*.HUMAN_CHIRHO.md` | Do not edit directly |
+| **Bidirectional** | Can flow either direction | `src/routes/**`, implementation code | See sync rules below |
+
+### 1.3 The Synchronization Rules
+
+When the AI detects a discrepancy between Spec and Code:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    SYNC DECISION FLOWCHART                      │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Is there uncommitted changes in the code?                      │
+│      │                                                          │
+│      ├── YES → ASK: "You have uncommitted changes. Should I     │
+│      │         update the spec to match, or discard changes?"   │
+│      │                                                          │
+│      └── NO → Check the last git commit...                      │
+│               │                                                 │
+│               ├── [AI-CHIRHO] in author → SPEC IS AUTHORITATIVE │
+│               │   → Auto-update code to match spec              │
+│               │                                                 │
+│               ├── Human commit (no tag) → CODE IS AUTHORITATIVE │
+│               │   → ASK: "Human modified code. Update spec?"    │
+│               │                                                 │
+│               └── Unclear/ambiguous → ASK                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 1.4 The Cardinal Rules
+
+1. **Never silently diverge.** If Spec and Code don't match, stop and resolve.
+2. **Spec changes require approval.** Always show changes before implementing.
+3. **Human edits are respected.** If a human modified code directly, ask before overwriting.
+4. **Context matters.** If the AI knows it just modified a file in this session, it can auto-sync without checking git.
+5. **When in doubt, ask.**
 
 ---
 
-## Core Features
+## 2. Naming & Casing Conventions
 
-### 1. Orphanage Administration Dashboard
+All project-created identifiers use the `_chirho` or `-chirho` suffix to distinguish from third-party code.
 
-```yaml
-dashboard_features_chirho:
-  child_management:
-    - Individual child profiles with photo, history, needs
-    - Health records and medical tracking
-    - Educational progress monitoring
-    - Sponsorship status and communications
-    - Transition planning (aging out, adoption, family reunification)
+### 2.1 The Suffix Rule
 
-  resource_management:
-    - Inventory tracking (food, clothing, supplies)
-    - Financial accounting with full audit trail
-    - Staff scheduling and management
-    - Facility maintenance logs
-    - Donation tracking and allocation
+| Type | Case Style | Suffix | Example |
+|------|------------|--------|---------|
+| **Variables/Functions (JS/TS)** | `camelCase` | `Chirho` | `userDataChirho`, `fetchUsersChirho()` |
+| **Classes/Components/Types** | `PascalCase` | `Chirho` | `UserProfileChirho`, `ChurchFormChirho` |
+| **Constants/Env Vars** | `SCREAMING_SNAKE` | `_CHIRHO` | `API_KEY_CHIRHO`, `MAX_RETRIES_CHIRHO` |
+| **NPM/Bun Scripts** | `kebab-case` | `-chirho` | `build-prod-chirho`, `test-e2e-chirho` |
+| **Directories (project-created)** | `snake_case` or `kebab-case` | `_chirho` or `-chirho` | `services_chirho/`, `api-chirho/` |
+| **Web Routes/Paths** | `kebab-case` | `-chirho` | `/admin-chirho/users-chirho/` |
+| **API Endpoints** | `kebab-case` | `-chirho` | `/api-chirho/widgets-chirho/` |
+| **Database Tables/Columns** | `snake_case` | `_chirho` | `users_chirho`, `created_at_chirho` |
+| **File Names** | Match language convention | `_chirho` or `-chirho` | `auth_chirho.ts`, `user-form-chirho.svelte` |
 
-  reporting:
-    - Monthly impact reports for donors
-    - Real-time dashboards for administrators
-    - Compliance reports for government/regulators
-    - Annual transparency reports
+### 2.2 Framework Directories (No Suffix)
+
+Directories required by frameworks keep their standard names:
+
+| Framework | Required Directories |
+|-----------|---------------------|
+| SvelteKit | `src/`, `routes/`, `lib/`, `static/` |
+
+**Principle:** Suffix what *we* create. Leave framework conventions alone.
+
+### 2.3 The Divine Header
+
+Every project file must include John 3:16 at the top:
+
+```javascript
+// For God so loved the world that He gave His only begotten Son...
 ```
-
-### 2. Donor Integration (via KingdomInvest.ing)
-
-```yaml
-donor_features_chirho:
-  transparency:
-    - Real-time fund allocation visibility
-    - Photo/video updates from orphanages
-    - Need-specific giving (food, education, medical)
-    - Impact metrics and outcomes tracking
-
-  engagement:
-    - Prayer request notifications
-    - Volunteer opportunity matching
-    - Sponsor-to-child communication
-    - Visit scheduling for verified donors
+```html
+<!-- For God so loved the world that He gave His only begotten Son... -->
 ```
-
-### 3. Child Sponsorship (via MakingFriends.faith)
-
 ```yaml
-sponsorship_integration_chirho:
-  matching:
-    - Age-appropriate sponsor matching
-    - Interest-based connections
-    - Long-term relationship tracking
-    - Communication facilitation
-
-  development:
-    - Educational goal tracking
-    - Spiritual growth milestones
-    - Life skills development
-    - Career interest identification
-```
-
-### 4. Education Pipeline (via SonshineCoders.org)
-
-```yaml
-education_pipeline_chirho:
-  assessment:
-    - Aptitude testing for technology
-    - Interest surveys
-    - Readiness evaluation
-
-  enrollment:
-    - Scholarship application processing
-    - Curriculum placement
-    - Mentor matching
-
-  tracking:
-    - Course progress monitoring
-    - Skill certification
-    - Portfolio development
-    - Job readiness scoring
-```
-
-### 5. Employment Launch (via Koinainia.com)
-
-```yaml
-employment_launch_chirho:
-  preparation:
-    - Resume/portfolio building
-    - Interview preparation
-    - Professional networking
-
-  placement:
-    - Job matching with certified integrators
-    - Freelance opportunity connection
-    - Apprenticeship programs
-
-  support:
-    - Ongoing mentorship
-    - Career advancement tracking
-    - Financial literacy training
+# For God so loved the world that He gave His only begotten Son...
 ```
 
 ---
 
-## Technical Architecture
+## 3. Technical Architecture
 
-### Tech Stack
+### 3.1 Tech Stack
 
 ```yaml
 tech_stack_chirho:
   frontend:
     - SvelteKit 2.x
+    - Svelte 5 with runes
     - Tailwind CSS 4.x
     - TypeScript
 
   backend:
-    - Cloudflare Workers
-    - D1 Database (SQLite)
-    - R2 Storage (media files)
-    - Durable Objects (real-time features)
+    - Cloudflare Workers (adapter-cloudflare)
+    - D1 Database (SQLite) - main data
+    - KV Storage - large text columns (>2KB), sessions
+    - R2 Storage - media files, documents
+    - Drizzle ORM
 
-  integrations:
-    - KingdomInvest.ing API (donations, campaigns)
-    - MakingFriends.faith API (sponsorships)
-    - SonshineCoders.org API (education)
-    - Koinainia.com API (employment)
-    - FaithStack Trust Network (verification)
+  email:
+    - 2SMTP relay (outbound)
+    - MAILU API (mailbox management)
+    - .fe extension on addresses (noreply.fe@openorphanage.org)
+
+  security:
+    - bcrypt (NOT argon2 - not available on Cloudflare)
+    - CSRF protection
+    - Rate limiting via KV
+    - Content Security Policy
 ```
 
-### Database Schema (Planned)
+### 3.2 Database Design with KV for Large Text
 
 ```yaml
-core_tables_chirho:
+d1_tables_chirho:
+  # Small data in D1
+  users_chirho:
+    - user_id_chirho (uuid, PK)
+    - email_chirho (string)
+    - password_hash_chirho (string, bcrypt)
+    - role_chirho (enum)
+    - created_at_chirho (timestamp)
+
   orphanages_chirho:
-    - id, name, location, capacity
-    - verification_status, trust_score
-    - admin_users, contact_info
-    - founding_date, mission_statement
+    - orphanage_id_chirho (uuid, PK)
+    - name_chirho (string)
+    - location_chirho (string)
+    - bio_kv_key_chirho (string) # Points to KV for large text
+    - verified_chirho (boolean)
 
   children_chirho:
-    - id, orphanage_id, name, birth_date
-    - entry_date, status (in_care, transitioned, adopted)
-    - sponsorship_id, education_level
-    - health_status, special_needs
-    - transition_plan, career_interests
+    - child_id_chirho (uuid, PK)
+    - orphanage_id_chirho (uuid, FK)
+    - pseudonym_chirho (string) # Privacy: no real names
+    - birth_year_chirho (int) # Privacy: no exact dates
+    - story_kv_key_chirho (string) # Large text in KV
+    - photo_r2_key_chirho (string) # Media in R2
 
-  needs_chirho:
-    - id, orphanage_id, child_id (optional)
-    - type (food, medical, education, clothing, facility)
-    - description, estimated_cost
-    - priority, status, fulfilled_date
-    - linked_campaign_id
+kv_patterns_chirho:
+  # Large text stored in KV with keys like:
+  - "orphanage:{id}:bio" → full bio text
+  - "child:{id}:story" → child's story
+  - "feedback:{id}:content" → feedback details
+  - "session:{token}" → session data
+  - "rate:{ip}:{endpoint}" → rate limiting
+```
 
-  staff_chirho:
-    - id, orphanage_id, name, role
-    - verification_status, background_check
-    - start_date, certifications
+### 3.3 Email Configuration
 
-  finances_chirho:
-    - id, orphanage_id, type (income, expense)
-    - amount, category, description
-    - date, verified_by, receipt_url
+```yaml
+email_config_chirho:
+  outbound_via_2smtp:
+    relay_host: "smtp.2smtp.com"
+    port: 587
+    auth:
+      api_key: MASTER_2SMT_MASTER_API_KEY_CHIRHO
 
-  sponsors_chirho:
-    - id, child_id, donor_id
-    - start_date, status
-    - communication_preferences
-    - last_update_sent
+  addresses:
+    noreply: "noreply.fe@openorphanage.org"
+    support: "support.fe@openorphanage.org"
+    admin: "admin.fe@openorphanage.org"
+
+  dns_records:
+    spf: "v=spf1 include:_spf.2smtp.com ~all"
+    dkim: # Configure via Cloudflare DNS
+    dmarc: "v=DMARC1; p=quarantine; rua=mailto:dmarc.fe@openorphanage.org"
 ```
 
 ---
 
-## User Roles
+## 4. Child Safety & Privacy
 
-### 1. Orphanage Administrators
-- Manage child records and staff
-- Track resources and finances
-- Submit needs to KingdomInvest.ing
-- Generate transparency reports
+### 4.1 Critical Privacy Rules
 
-### 2. Caregivers/Staff
-- Daily care logging
-- Health and education updates
-- Communication with sponsors
-- Activity scheduling
+```yaml
+child_privacy_chirho:
+  never_expose:
+    - Full legal names (use pseudonyms only)
+    - Exact birth dates (use birth year only)
+    - Exact location (use region/country only)
+    - Family details
+    - Medical specifics
+    - Trauma history details
 
-### 3. Donors/Sponsors (via integrations)
-- View orphanage dashboards
-- Track sponsored children
-- See fund allocation
-- Receive impact updates
+  photo_rules:
+    - Explicit consent required
+    - No identifying backgrounds
+    - Faces may be shown only with guardian consent
+    - Stored in R2 with access controls
+    - No EXIF/GPS data
 
-### 4. Verifiers (FaithStack Trust Network)
-- Conduct site visits
-- Verify financial records
-- Confirm child welfare
-- Issue trust certificates
+  communication_rules:
+    - All sponsor messages moderated before delivery
+    - AI-assisted content filtering
+    - No direct contact information shared
+    - Video calls only through platform (future)
+```
 
-### 5. Transition Coordinators
-- Track aging-out children
-- Coordinate with SonshineCoders
-- Facilitate Koinainia onboarding
-- Monitor post-transition success
+### 4.2 Access Control Matrix
+
+| Role | Children Data | Financial Data | Admin Functions |
+|------|--------------|----------------|-----------------|
+| Public | Anonymized stats | Aggregate only | None |
+| Donor/Sponsor | Sponsored child profile | Their donations | None |
+| Staff | Assigned orphanage | None | Daily logs |
+| Admin | Full orphanage | Full orphanage | Orphanage management |
+| Super Admin | All | All | Platform management |
 
 ---
 
-## API Endpoints (Planned)
+## 5. Core Features
+
+### 5.1 Feedback System (from guide)
+
+```yaml
+feedback_system_chirho:
+  form_fields:
+    - category_chirho: [Bug, Feature, General, Safety Concern]
+    - rating_chirho: 1-5 stars (optional)
+    - content_chirho: text (stored in KV if >2KB)
+    - anonymous_chirho: boolean
+    - public_visible_chirho: boolean
+
+  routes:
+    - GET /feedback-chirho → view public feedback
+    - POST /api-chirho/feedback-chirho → submit feedback
+    - GET /admin-chirho/feedback-chirho → manage feedback
+
+  safety_escalation:
+    - "Safety Concern" category → immediate admin notification
+    - Email to admin.fe@openorphanage.org
+```
+
+### 5.2 Dashboard Features
+
+```yaml
+dashboard_features_chirho:
+  orphanage_admin:
+    - Child management (pseudonymized)
+    - Staff management
+    - Needs tracking
+    - Financial reporting
+    - Donor communication
+
+  donor_view:
+    - Sponsored child updates
+    - Impact metrics
+    - Donation history
+    - Communication center
+```
+
+### 5.3 API Endpoints
 
 ```yaml
 api_endpoints_chirho:
   public:
-    GET /api-chirho/orphanages-chirho        # List verified orphanages
-    GET /api-chirho/needs-chirho             # Current needs (for KingdomInvest.ing)
-    GET /api-chirho/impact-chirho            # Aggregate impact metrics
+    GET /api-chirho/orphanages-chirho         # List verified orphanages
+    GET /api-chirho/needs-chirho              # Current needs (for KingdomInvest.ing)
+    GET /api-chirho/impact-chirho             # Aggregate impact metrics
+    POST /api-chirho/feedback-chirho          # Submit feedback
 
   authenticated:
+    # Auth
+    POST /api-chirho/auth-chirho/register     # Register
+    POST /api-chirho/auth-chirho/login        # Login
+    POST /api-chirho/auth-chirho/logout       # Logout
+
     # Orphanage management
-    POST /api-chirho/orphanages-chirho       # Register new orphanage
-    PUT /api-chirho/orphanages-chirho/:id    # Update orphanage info
+    POST /api-chirho/orphanages-chirho        # Register orphanage
+    PUT /api-chirho/orphanages-chirho/:id     # Update orphanage
 
-    # Child management
-    GET /api-chirho/children-chirho          # List children (filtered)
-    POST /api-chirho/children-chirho         # Add child record
-    PUT /api-chirho/children-chirho/:id      # Update child record
-
-    # Needs management
-    POST /api-chirho/needs-chirho            # Create new need
-    PUT /api-chirho/needs-chirho/:id         # Update need status
-
-    # Financial tracking
-    POST /api-chirho/finances-chirho         # Log transaction
-    GET /api-chirho/finances-chirho/report   # Generate financial report
+    # Child management (admin only)
+    GET /api-chirho/children-chirho           # List children
+    POST /api-chirho/children-chirho          # Add child
+    PUT /api-chirho/children-chirho/:id       # Update child
 
   webhooks:
-    POST /webhook-chirho/kingdominvest       # Donation notifications
-    POST /webhook-chirho/makingfriends       # Sponsorship updates
-    POST /webhook-chirho/sonshinecoders      # Education milestones
-    POST /webhook-chirho/koinainia           # Employment updates
+    POST /webhook-chirho/kingdominvest        # Donation notifications
+    POST /webhook-chirho/makingfriends        # Sponsorship updates
 ```
 
 ---
 
-## Privacy & Security
-
-### Child Protection
+## 6. Legal Pages (Required)
 
 ```yaml
-child_protection_chirho:
-  data_privacy:
-    - No public display of full names or identifying details
-    - Photo consent required and logged
-    - Sponsor communication moderated
-    - Location data restricted
+legal_pages_chirho:
+  required:
+    - /privacy-fe → Privacy Policy
+    - /terms-fe → Terms of Service
+    - /contact-fe → Contact form
+    - /accessibility-fe → WCAG 2.1 AA statement
 
-  access_control:
-    - Role-based permissions
-    - Audit logging for all child record access
-    - Two-factor authentication for admin functions
-    - Background check verification for staff
+  content_requirements:
+    privacy:
+      - Data collection practices
+      - Child data protection measures
+      - GDPR/CCPA compliance
+      - Data retention policies
+      - Export/deletion rights
 
-  content_moderation:
-    - All sponsor messages reviewed before delivery
-    - AI-assisted content filtering
-    - Inappropriate content flagging
-    - Emergency escalation procedures
+    terms:
+      - User responsibilities
+      - Content guidelines
+      - Prohibited activities
+      - Liability limitations
 ```
 
 ---
 
-## Integration Points
+## 7. Color Scheme
 
-### KingdomInvest.ing
+```yaml
+colors_chirho:
+  primary:
+    rose: "#f43f5e"      # Compassion, love
+    teal: "#14b8a6"      # Trust, growth
 
-```typescript
-// Push needs to KingdomInvest.ing
-async function publishNeedChirho(needChirho: NeedChirho) {
-  await fetch('https://kingdominvest.ing/api-chirho/external-needs-chirho', {
-    method: 'POST',
-    headers: { 'X-API-Key': env.KINGDOMINVEST_API_KEY_CHIRHO },
-    body: JSON.stringify({
-      sourceChirho: 'openorphanage',
-      orphanageIdChirho: needChirho.orphanageIdChirho,
-      typeChirho: needChirho.typeChirho,
-      amountChirho: needChirho.estimatedCostChirho,
-      descriptionChirho: needChirho.descriptionChirho
-    })
-  });
-}
-```
+  secondary:
+    amber: "#f59e0b"     # Hope, warmth
+    purple: "#8b5cf6"    # Dignity, royalty
+    emerald: "#10b981"   # Life, flourishing
 
-### MakingFriends.faith
+  semantic:
+    success: "#22c55e"
+    warning: "#f59e0b"
+    error: "#ef4444"
+    info: "#3b82f6"
 
-```typescript
-// Sync sponsorship data
-async function syncSponsorshipChirho(childIdChirho: string) {
-  const sponsorshipChirho = await fetch(
-    `https://makingfriends.faith/api-chirho/sponsorships-chirho/${childIdChirho}`,
-    { headers: { 'X-API-Key': env.MAKINGFRIENDS_API_KEY_CHIRHO } }
-  );
-  return sponsorshipChirho.json();
-}
-```
-
-### SonshineCoders.org
-
-```typescript
-// Enroll aging-out youth
-async function enrollInEducationChirho(youthChirho: TransitionYouthChirho) {
-  await fetch('https://sonshinecoders.org/api-chirho/scholarships-chirho', {
-    method: 'POST',
-    headers: { 'X-API-Key': env.SONSHINECODERS_API_KEY_CHIRHO },
-    body: JSON.stringify({
-      nameChirho: youthChirho.nameChirho,
-      ageChirho: youthChirho.ageChirho,
-      orphanageIdChirho: youthChirho.orphanageIdChirho,
-      interestsChirho: youthChirho.careerInterestsChirho,
-      supportNeedsChirho: youthChirho.supportNeedsChirho
-    })
-  });
-}
+  gradients:
+    compassion: "from-rose-500 to-pink-600"
+    trust: "from-teal-500 to-cyan-600"
+    hope: "from-amber-500 to-orange-600"
+    journey: "from-rose-500 via-purple-500 via-amber-500 to-emerald-500"
 ```
 
 ---
 
-## Directory Structure
+## 8. Directory Structure
 
 ```
 openorphanage.org-chirho/
@@ -419,60 +486,77 @@ openorphanage.org-chirho/
 ├── src/
 │   ├── app.css                  # Tailwind + custom styles
 │   ├── app.html
-│   ├── app.d.ts
+│   ├── app.d.ts                 # Cloudflare bindings
 │   │
 │   ├── lib/
 │   │   ├── components/
-│   │   │   ├── OrphanageDashboardChirho.svelte
+│   │   │   ├── ui-chirho/       # Reusable UI components
+│   │   │   ├── FeedbackFormChirho.svelte
+│   │   │   ├── OrphanageCardChirho.svelte
 │   │   │   ├── ChildProfileChirho.svelte
-│   │   │   ├── NeedCardChirho.svelte
-│   │   │   ├── TransparencyReportChirho.svelte
-│   │   │   └── JourneyTimelineChirho.svelte
+│   │   │   └── DashboardChirho.svelte
 │   │   │
 │   │   ├── server/
-│   │   │   ├── db_chirho.ts
-│   │   │   ├── auth_chirho.ts
-│   │   │   └── integrations_chirho/
-│   │   │       ├── kingdominvest_chirho.ts
-│   │   │       ├── makingfriends_chirho.ts
-│   │   │       ├── sonshinecoders_chirho.ts
-│   │   │       └── koinainia_chirho.ts
+│   │   │   ├── db_chirho.ts           # Drizzle + D1
+│   │   │   ├── schema_chirho.ts       # Database schema
+│   │   │   ├── kv_chirho.ts           # KV helpers
+│   │   │   ├── r2_chirho.ts           # R2 helpers
+│   │   │   ├── auth_chirho.ts         # Auth (bcrypt)
+│   │   │   ├── email_chirho.ts        # 2SMTP/MAILU
+│   │   │   └── security_chirho.ts     # CSRF, rate limiting
 │   │   │
 │   │   └── types_chirho.ts
 │   │
 │   └── routes/
 │       ├── +layout.svelte
-│       ├── +page.svelte         # Public landing
+│       ├── +layout.server.ts
+│       ├── +page.svelte              # Landing page
+│       │
+│       ├── privacy-fe/
+│       ├── terms-fe/
+│       ├── contact-fe/
+│       │
+│       ├── feedback-chirho/
+│       │   └── +page.svelte
 │       │
 │       ├── orphanages-chirho/
-│       │   ├── +page.svelte     # Browse orphanages
-│       │   └── [id]-chirho/
-│       │       └── +page.svelte # Orphanage detail
+│       │   ├── +page.svelte          # Browse orphanages
+│       │   └── [id_chirho]/
+│       │       └── +page.svelte      # Orphanage detail
 │       │
-│       ├── dashboard-chirho/    # Admin dashboard
+│       ├── auth-chirho/
+│       │   ├── login-chirho/
+│       │   ├── register-chirho/
+│       │   └── logout-chirho/
+│       │
+│       ├── dashboard-chirho/
 │       │   ├── +page.svelte
 │       │   ├── children-chirho/
 │       │   ├── needs-chirho/
-│       │   ├── finances-chirho/
-│       │   └── reports-chirho/
+│       │   └── finances-chirho/
 │       │
-│       ├── journey-chirho/      # The complete journey
-│       │   └── +page.svelte
+│       ├── admin-chirho/
+│       │   ├── +page.svelte
+│       │   ├── feedback-chirho/
+│       │   ├── users-chirho/
+│       │   └── orphanages-chirho/
 │       │
-│       └── api-chirho/          # API endpoints
+│       └── api-chirho/
+│           ├── auth-chirho/
 │           ├── orphanages-chirho/
 │           ├── children-chirho/
+│           ├── feedback-chirho/
 │           ├── needs-chirho/
 │           └── webhook-chirho/
 │
 └── static/
-    ├── favicon.ico
+    ├── favicon.svg
     └── images/
 ```
 
 ---
 
-## Development Commands
+## 9. Development Commands
 
 ```bash
 # Install dependencies
@@ -489,39 +573,70 @@ bun run deploy-chirho
 
 # Type checking
 bun run check
+
+# Database commands (when D1 is set up)
+bun run db:generate-chirho     # Generate migrations
+bun run db:migrate-chirho      # Run migrations
+bun run db:studio-chirho       # Drizzle Studio
 ```
 
 ---
 
-## Roadmap
+## 10. Git & Authorship Protocol
 
-### Phase 1: Foundation (Current)
-- [ ] Landing page with vision
-- [ ] Basic orphanage registration
-- [ ] Simple child record keeping
-- [ ] Integration with FaithStack
+### 10.1 Commit Message Format
 
-### Phase 2: Core Features
-- [ ] Full dashboard implementation
-- [ ] KingdomInvest.ing needs integration
-- [ ] MakingFriends.faith sponsorship sync
-- [ ] Transparency reporting
+```bash
+git commit --author="User Name [AI-CHIRHO] <user@email.com>" -m "$(cat <<'EOFCHIRHO'
+feat(auth): add session refresh logic
 
-### Phase 3: Education Pipeline
-- [ ] SonshineCoders.org scholarship integration
-- [ ] Career interest tracking
-- [ ] Skill assessment tools
-- [ ] Transition planning dashboard
+- Implement 15-day refresh threshold
+- Add secure cookie settings
 
-### Phase 4: Employment Launch
-- [ ] Koinainia.com job matching
-- [ ] Portfolio integration
-- [ ] Success tracking
-- [ ] Alumni network
+Assisted-By: Claude <noreply@anthropic.com>
+JESUS CHRIST IS LORD
+EOFCHIRHO
+)"
+```
+
+The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## Scripture Foundation
+## 11. Security Notes
+
+### 11.1 Cloudflare-Compatible Security
+
+```yaml
+security_notes_chirho:
+  password_hashing:
+    # IMPORTANT: Argon2 is NOT available on Cloudflare Workers
+    # Use bcrypt instead
+    algorithm: bcrypt
+    rounds: 12
+
+  session_management:
+    storage: KV
+    token_format: crypto.randomUUID()
+    expiry: 30 days
+    refresh: at 15 days
+
+  rate_limiting:
+    storage: KV
+    key_format: "rate:{ip}:{endpoint}"
+    limits:
+      login: 5 per minute
+      register: 3 per hour
+      feedback: 10 per hour
+
+  csrf:
+    enabled: true
+    token_in: cookie + form field
+```
+
+---
+
+## 12. Scripture Foundation
 
 > *"Defend the weak and the fatherless; uphold the cause of the poor and the oppressed."* — Psalm 82:3
 
@@ -530,6 +645,8 @@ bun run check
 > *"He defends the cause of the fatherless and the widow."* — Deuteronomy 10:18
 
 > *"A father to the fatherless, a defender of widows, is God in his holy dwelling."* — Psalm 68:5
+
+> *"I will not leave you as orphans; I will come to you."* — John 14:18 (Jesus speaking)
 
 ---
 

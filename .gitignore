@@ -11,10 +11,13 @@ node_modules/
 build/
 dist/
 
-# Environment
+# Environment & Secrets - NEVER COMMIT
 .env
 .env.local
 .env.*.local
+env_available_chirho
+*.secret
+*.key
 
 # IDE
 .idea/

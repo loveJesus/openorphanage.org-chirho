@@ -1,6 +1,10 @@
-<script lang="ts">
+<!-- For God so loved the world that He gave His only begotten Son... -->
+<script>
 	import '../app.css';
-	let { children } = $props();
+
+	let { children, data } = $props();
+
+	const userChirho = $derived(data?.userChirho);
 </script>
 
 <svelte:head>
@@ -23,13 +27,32 @@
 			</a>
 
 			<div class="hidden md:flex items-center gap-6">
-				<a href="/journey-chirho" class="text-slate-300 hover:text-white transition-colors">The Journey</a>
 				<a href="/orphanages-chirho" class="text-slate-300 hover:text-white transition-colors">Orphanages</a>
+				<a href="/feedback-chirho" class="text-slate-300 hover:text-white transition-colors">Feedback</a>
 				<a href="https://kingdominvest.ing" class="text-slate-300 hover:text-white transition-colors">Support</a>
-				<a href="/dashboard-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
-					Dashboard
-				</a>
+
+				{#if userChirho}
+					<a href="/dashboard-chirho" class="text-slate-300 hover:text-white transition-colors">Dashboard</a>
+					{#if userChirho.roleChirho === 'admin' || userChirho.roleChirho === 'super_admin'}
+						<a href="/admin-chirho" class="text-amber-400 hover:text-amber-300 transition-colors">Admin</a>
+					{/if}
+					<a href="/auth-chirho/logout-chirho" class="bg-slate-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
+						Logout
+					</a>
+				{:else}
+					<a href="/auth-chirho/login-chirho" class="text-slate-300 hover:text-white transition-colors">Login</a>
+					<a href="/auth-chirho/register-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
+						Register
+					</a>
+				{/if}
 			</div>
+
+			<!-- Mobile menu button -->
+			<button class="md:hidden p-2 text-slate-300 hover:text-white">
+				<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+				</svg>
+			</button>
 		</nav>
 	</header>
 
@@ -67,13 +90,14 @@
 					</ul>
 				</div>
 
-				<!-- FaithStack -->
+				<!-- Legal -->
 				<div>
-					<h4 class="font-semibold mb-4 text-teal-400">FaithStack</h4>
+					<h4 class="font-semibold mb-4 text-teal-400">Legal</h4>
 					<ul class="space-y-2 text-sm text-slate-400">
-						<li><a href="https://stack.faith" class="hover:text-white transition-colors">Ecosystem</a></li>
-						<li><a href="https://kingdominvest.ing" class="hover:text-white transition-colors">Support Projects</a></li>
-						<li><a href="https://bible.systems" class="hover:text-white transition-colors">Bible.Systems</a></li>
+						<li><a href="/privacy-fe" class="hover:text-white transition-colors">Privacy Policy</a></li>
+						<li><a href="/terms-fe" class="hover:text-white transition-colors">Terms of Service</a></li>
+						<li><a href="/contact-fe" class="hover:text-white transition-colors">Contact Us</a></li>
+						<li><a href="/feedback-chirho" class="hover:text-white transition-colors">Give Feedback</a></li>
 					</ul>
 				</div>
 

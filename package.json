@@ -10,19 +10,29 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"deploy-chirho": "bun run build && bunx wrangler deploy"
+		"deploy-chirho": "bun run build && bunx wrangler deploy",
+		"db:generate-chirho": "drizzle-kit generate",
+		"db:migrate-chirho": "wrangler d1 migrations apply openorphanage-chirho --remote",
+		"db:migrate-local-chirho": "wrangler d1 migrations apply openorphanage-chirho --local",
+		"db:studio-chirho": "drizzle-kit studio"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"drizzle-orm": "^0.38.3"
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20241127.0",
-		"@sveltejs/adapter-cloudflare": "^4.0.0",
-		"@sveltejs/kit": "^2.49.1",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@sveltejs/adapter-cloudflare": "^4.9.0",
+		"@sveltejs/kit": "^2.15.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.4",
 		"@tailwindcss/vite": "^4.0.0",
-		"svelte": "^5.45.6",
-		"svelte-check": "^4.3.4",
+		"@types/bcryptjs": "^2.4.6",
+		"drizzle-kit": "^0.30.1",
+		"svelte": "^5.15.0",
+		"svelte-check": "^4.1.0",
 		"tailwindcss": "^4.0.0",
-		"typescript": "^5.9.3",
-		"vite": "^6.0.0",
-		"wrangler": "^4.54.0"
+		"typescript": "^5.7.2",
+		"vite": "^6.0.7",
+		"wrangler": "^3.99.0"
 	}
 }

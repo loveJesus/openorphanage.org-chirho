@@ -18,8 +18,31 @@ directory = ".svelte-kit/cloudflare"
 [dev]
 port = 5183
 
-# Future: D1 Database for orphanage data
-# [[d1_databases]]
-# binding = "DB_CHIRHO"
-# database_name = "openorphanage-chirho"
-# database_id = "TBD"
+# D1 Database for orphanage data
+[[d1_databases]]
+binding = "DB_CHIRHO"
+database_name = "openorphanage-chirho"
+database_id = "2202fc9a-27e5-4302-94a0-8fe96f083e50"
+
+# KV for sessions, large text, rate limiting
+[[kv_namespaces]]
+binding = "KV_CHIRHO"
+id = "59c04cea3ad143eaaac816034a42cfb1"
+
+# R2 for media files (photos, documents)
+[[r2_buckets]]
+bucket_name = "openorphanage-media-chirho"
+binding = "R2_CHIRHO"
+
+# Environment variables (secrets set via wrangler secret put)
+[vars]
+EMAIL_FROM_CHIRHO = "noreply.fe@openorphanage.org"
+EMAIL_SUPPORT_CHIRHO = "support.fe@openorphanage.org"
+EMAIL_ADMIN_CHIRHO = "admin.fe@openorphanage.org"
+SITE_URL_CHIRHO = "https://openorphanage.org"
+SITE_NAME_CHIRHO = "OpenOrphanage"
+
+# Note: Set these secrets via wrangler secret put:
+# wrangler secret put MASTER_2SMTP_API_KEY_CHIRHO
+# wrangler secret put MAILU_API_TOKEN_CHIRHO
+# wrangler secret put SESSION_SECRET_CHIRHO
