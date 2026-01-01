@@ -574,6 +574,12 @@ bun run deploy-chirho
 # Type checking
 bun run check
 
+# Testing
+bun run test-chirho            # Run unit tests (Vitest)
+bun run test-watch-chirho      # Run tests in watch mode
+bun run test-e2e-chirho        # Run E2E tests (Playwright)
+bun run test-all-chirho        # Run all tests
+
 # Database commands (when D1 is set up)
 bun run db:generate-chirho     # Generate migrations
 bun run db:migrate-chirho      # Run migrations
@@ -582,9 +588,97 @@ bun run db:studio-chirho       # Drizzle Studio
 
 ---
 
-## 10. Git & Authorship Protocol
+## 10. Testing Strategy
 
-### 10.1 Commit Message Format
+### 10.1 Test Configuration
+
+```yaml
+testing_config_chirho:
+  unit_tests:
+    framework: Vitest
+    config_file: vitest.config.ts
+    test_pattern: "src/**/*.test.ts"
+    environment: node  # No browser/jsdom needed for server tests
+    timeout: 5000ms per test
+
+  e2e_tests:
+    framework: Playwright
+    config_file: playwright.config.ts
+    test_directory: tests-e2e-chirho/
+    test_pattern: "**/*.e2e.ts"
+    browser: chromium only (speed)
+    headless: true  # CRITICAL: Always headless, no GUI popups
+    timeout: 10000ms per test
+
+  deploy:
+    command: "bun run deploy-chirho"
+    flow: "test-chirho → build → wrangler deploy"
+    goal: All tests under 30 seconds total
+```
+
+### 10.2 Test File Locations
+
+```
+openorphanage.org-chirho/
+├── src/lib/server/
+│   ├── security_chirho.ts           # Security utilities
+│   ├── security_chirho.test.ts      # Unit tests
+│   ├── auth_chirho.ts               # Authentication
+│   ├── auth_chirho.test.ts          # Unit tests
+│   └── webhook_chirho.test.ts       # Webhook tests
+│
+└── tests-e2e-chirho/
+    ├── homepage.e2e.ts              # Homepage & navigation
+    └── auth.e2e.ts                  # Authentication flows
+```
+
+### 10.3 Testing Focus Areas
+
+```yaml
+test_coverage_priorities_chirho:
+  high_priority:
+    - Webhook signature verification (HMAC-SHA256)
+    - Input sanitization (XSS prevention)
+    - Authentication flows
+    - Rate limiting logic
+
+  medium_priority:
+    - Email validation
+    - UUID validation
+    - Session management
+    - Protected route access
+
+  e2e_scenarios:
+    - Homepage loads correctly
+    - Login/register forms work
+    - Protected routes redirect
+    - Feedback submission
+```
+
+### 10.4 Running Tests
+
+```bash
+# Unit tests only (fast)
+bun run test-chirho
+
+# Watch mode for development
+bun run test-watch-chirho
+
+# E2E tests (starts dev server automatically)
+bun run test-e2e-chirho
+
+# All tests
+bun run test-all-chirho
+
+# Deploy with tests (recommended)
+bun run deploy-chirho  # Runs: test-chirho → build → wrangler deploy
+```
+
+---
+
+## 11. Git & Authorship Protocol
+
+### 11.1 Commit Message Format
 
 ```bash
 git commit --author="User Name [AI-CHIRHO] <user@email.com>" -m "$(cat <<'EOFCHIRHO'
@@ -603,9 +697,9 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 11. Security Notes
+## 12. Security Notes
 
-### 11.1 Cloudflare-Compatible Security
+### 12.1 Cloudflare-Compatible Security
 
 ```yaml
 security_notes_chirho:
@@ -636,7 +730,7 @@ security_notes_chirho:
 
 ---
 
-## 12. Scripture Foundation
+## 13. Scripture Foundation
 
 > *"Defend the weak and the fatherless; uphold the cause of the poor and the oppressed."* — Psalm 82:3
 

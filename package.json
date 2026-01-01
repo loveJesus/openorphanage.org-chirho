@@ -10,7 +10,11 @@
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"deploy-chirho": "bun run build && bunx wrangler deploy",
+		"test-chirho": "vitest run",
+		"test-watch-chirho": "vitest",
+		"test-e2e-chirho": "playwright test",
+		"test-all-chirho": "vitest run && playwright test",
+		"deploy-chirho": "bun run test-chirho && bun run build && bunx wrangler deploy",
 		"db:generate-chirho": "drizzle-kit generate",
 		"db:migrate-chirho": "wrangler d1 migrations apply openorphanage-chirho --remote",
 		"db:migrate-local-chirho": "wrangler d1 migrations apply openorphanage-chirho --local",
@@ -22,6 +26,7 @@
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20241127.0",
+		"@playwright/test": "^1.57.0",
 		"@sveltejs/adapter-cloudflare": "^4.9.0",
 		"@sveltejs/kit": "^2.15.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.4",
@@ -33,6 +38,7 @@
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.7.2",
 		"vite": "^6.0.7",
+		"vitest": "^4.0.16",
 		"wrangler": "^3.99.0"
 	}
 }
