@@ -13,6 +13,32 @@
 	let editingProfileChirho = $state(false);
 	let changingPasswordChirho = $state(false);
 	let nameInputChirho = $state(userChirho?.nameChirho || '');
+	let sendingVerificationChirho = $state(false);
+	let verificationMessageChirho = $state<{ typeChirho: 'success' | 'error'; textChirho: string } | null>(null);
+
+	async function sendVerificationEmailChirho() {
+		sendingVerificationChirho = true;
+		verificationMessageChirho = null;
+
+		try {
+			const responseChirho = await fetch('/api-chirho/auth-chirho/send-verification', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' }
+			});
+
+			const dataChirho = await responseChirho.json();
+
+			if (dataChirho.successChirho) {
+				verificationMessageChirho = { typeChirho: 'success', textChirho: 'Verification email sent! Please check your inbox.' };
+			} else {
+				verificationMessageChirho = { typeChirho: 'error', textChirho: dataChirho.errorChirho || 'Failed to send verification email' };
+			}
+		} catch (errChirho) {
+			verificationMessageChirho = { typeChirho: 'error', textChirho: 'An error occurred. Please try again.' };
+		} finally {
+			sendingVerificationChirho = false;
+		}
+	}
 
 	function formatDateChirho(dateStrChirho: string | null) {
 		if (!dateStrChirho) return 'N/A';
@@ -269,11 +295,30 @@
 								Verified
 							</span>
 						{:else}
-							<button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm">
-								Verify Email
+							<button
+								onclick={sendVerificationEmailChirho}
+								disabled={sendingVerificationChirho}
+								class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg font-medium transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{#if sendingVerificationChirho}
+									<span class="inline-flex items-center gap-2">
+										<svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+											<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										</svg>
+										Sending...
+									</span>
+								{:else}
+									Send Verification Email
+								{/if}
 							</button>
 						{/if}
 					</div>
+					{#if verificationMessageChirho}
+						<div class="mt-3 px-3 py-2 rounded-lg text-sm {verificationMessageChirho.typeChirho === 'success' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}">
+							{verificationMessageChirho.textChirho}
+						</div>
+					{/if}
 				</div>
 			</div>
 
