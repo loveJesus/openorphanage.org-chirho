@@ -1,0 +1,89 @@
+@import 'tailwindcss';
+
+/* OpenOrphanage Theme - Warm, trustworthy, transparent */
+:root {
+	--color-primary: #e11d48; /* Rose for compassion */
+	--color-secondary: #0d9488; /* Teal for trust */
+	--color-accent: #f59e0b; /* Amber for warmth */
+}
+
+html {
+	font-family:
+		'Inter',
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		Roboto,
+		sans-serif;
+}
+
+body {
+	background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+	min-height: 100vh;
+}
+
+/* Compassion gradient */
+.text-gradient-compassion {
+	background: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #fb7185 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Trust gradient */
+.text-gradient-trust {
+	background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Transparency card effect */
+.card-transparent {
+	background: rgba(255, 255, 255, 0.03);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Glow effects */
+.glow-rose {
+	box-shadow: 0 0 40px rgba(225, 29, 72, 0.3);
+}
+
+.glow-teal {
+	box-shadow: 0 0 40px rgba(13, 148, 136, 0.3);
+}
+
+/* Card hover animation */
+.card-hover {
+	transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated background */
+.bg-gradient-animated {
+	background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #0f172a 50%, #1e1b4b 75%, #0f172a 100%);
+	background-size: 400% 400%;
+	animation: gradient-shift 15s ease infinite;
+}
+
+@keyframes gradient-shift {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+	from { width: 0%; }
+	to { width: var(--progress-width); }
+}
+
+.progress-animated {
+	animation: progress-fill 1s ease-out forwards;
+}

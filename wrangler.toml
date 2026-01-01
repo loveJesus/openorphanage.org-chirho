@@ -1,0 +1,25 @@
+# For God so loved the world, that He gave His only begotten Son,
+# that all who believe in Him should not perish but have everlasting life. — John 3:16
+
+name = "openorphanage-org-chirho"
+main = ".svelte-kit/cloudflare/_worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+account_id = "aecd5616f7ef88323e52b6406ba384bd"
+
+routes = [
+    { pattern = "openorphanage.org", custom_domain = true }
+]
+
+[assets]
+directory = ".svelte-kit/cloudflare"
+
+[dev]
+port = 5183
+
+# Future: D1 Database for orphanage data
+# [[d1_databases]]
+# binding = "DB_CHIRHO"
+# database_name = "openorphanage-chirho"
+# database_id = "TBD"
