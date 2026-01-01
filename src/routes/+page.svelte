@@ -118,6 +118,11 @@
 
 <!-- Hero Section -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-animated">
+	<!-- Background image with overlay -->
+	<div class="absolute inset-0">
+		<img src="/hero-bg-gradient-chirho.png" alt="" class="w-full h-full object-cover opacity-40" aria-hidden="true" />
+		<div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950"></div>
+	</div>
 	<!-- Animated background -->
 	<div class="absolute inset-0 overflow-hidden">
 		<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -300,8 +305,12 @@
 
 <!-- Featured Orphanages -->
 {#if featuredOrphanagesChirho.length > 0}
-<section class="py-24 bg-slate-950">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-24 bg-slate-950 relative overflow-hidden">
+	<!-- Background image -->
+	<div class="absolute inset-0 opacity-5">
+		<img src="/hero-children-chirho.png" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+	</div>
+	<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-12">
 			<h2 class="text-3xl md:text-4xl font-bold mb-4">
 				<span class="text-gradient-trust">Featured</span> Orphanages
@@ -432,6 +441,11 @@
 			<div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
 				<h3 class="font-bold text-lg mb-6 text-center">Dashboard Preview</h3>
 
+				<!-- Dashboard image -->
+				<div class="rounded-xl overflow-hidden mb-6 border border-slate-600 shadow-xl">
+					<img src="/dashboard-preview-chirho.png" alt="OpenOrphanage Dashboard Preview" class="w-full h-auto" />
+				</div>
+
 				<!-- Mock dashboard -->
 				<div class="space-y-4">
 					<div class="bg-slate-900/50 rounded-lg p-4">
@@ -485,8 +499,12 @@
 </section>
 
 <!-- For Donors -->
-<section class="py-24 bg-gradient-to-br from-slate-950 via-teal-950/20 to-slate-950">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-24 bg-gradient-to-br from-slate-950 via-teal-950/20 to-slate-950 relative overflow-hidden">
+	<!-- Caring hands background -->
+	<div class="absolute right-0 top-1/2 -translate-y-1/2 w-1/2 h-full opacity-10">
+		<img src="/caring-hands-chirho.png" alt="" class="w-full h-full object-cover" aria-hidden="true" />
+	</div>
+	<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<div class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 px-4 py-2 rounded-full text-sm mb-6">
 				<span class="w-2 h-2 bg-amber-400 rounded-full"></span>
@@ -540,8 +558,14 @@
 </section>
 
 <!-- CTA -->
-<section class="py-24 bg-slate-900">
-	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<section class="py-24 bg-slate-900 relative overflow-hidden">
+	<!-- Journey background image -->
+	<div class="absolute inset-0">
+		<img src="/journey-sunrise-chirho.png" alt="" class="w-full h-full object-cover opacity-20" aria-hidden="true" />
+		<div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900"></div>
+	</div>
+
+	<div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 		<h2 class="text-3xl md:text-4xl font-bold mb-6">
 			Join the <span class="text-gradient-compassion">Journey</span>
 		</h2>
