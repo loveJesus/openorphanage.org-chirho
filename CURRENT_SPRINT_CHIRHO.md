@@ -18,7 +18,8 @@
 
 ## Active Tasks
 
-- [ ] Apple OAuth implementation
+- [ ] Passkeys/WebAuthn implementation (future enhancement)
+- [ ] TOTP 2FA (future enhancement)
 
 ---
 
@@ -30,6 +31,8 @@
 
 ## Recently Completed
 
+- [x] Implemented Apple OAuth authentication (2026-01-03)
+- [x] Added support ticket stats to admin dashboard (2026-01-03)
 - [x] Created support ticket admin management UI (2026-01-03)
 - [x] Added Turnstile widgets to frontend forms (newsletter, support, feedback) (2026-01-03)
 - [x] Added Turnstile verification to public form endpoints (2026-01-03)
@@ -59,18 +62,19 @@
 ## Context for Next Session
 
 ### Current State
-- Google OAuth + GitHub OAuth fully functional with session-based auth via KV
+- Google OAuth + GitHub OAuth + Apple OAuth fully functional with session-based auth via KV
 - Turnstile protection on all public forms (newsletter, support tickets, feedback)
 - Rate limiting on all sensitive endpoints
-- Support ticket admin management UI at /admin-chirho/support-chirho
+- Support ticket admin management UI at /admin-chirho/support-chirho with dashboard stats
 - Homepage uses AI-generated images instead of emoji panels
 - Feature voting system is fully functional at /features-fe
 - All legal pages are in place
 - Audit logging is working
 - Support links point to KingdomInvest.ing campaign
+- Admin dashboard shows open tickets and urgent ticket alerts
 
 ### What Needs Attention
-- Apple OAuth implementation (route structure ready)
+- Apple OAuth requires secrets to be set (see commit message for details)
 - Passkeys/WebAuthn (future enhancement)
 - TOTP 2FA (future enhancement)
 - May want to add more E2E tests for critical paths
@@ -79,7 +83,8 @@
 - `src/routes/+page.svelte` - Homepage with journey steps and features
 - `src/routes/features-fe/+page.svelte` - Feature voting UI
 - `src/routes/admin-chirho/support-chirho/` - Support ticket management UI
-- `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google + GitHub implemented)
+- `src/routes/admin-chirho/+page.svelte` - Admin dashboard with ticket stats
+- `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google + GitHub + Apple)
 - `src/lib/server/turnstile_chirho.ts` - Turnstile verification utility
 - `src/lib/server/security_chirho.ts` - Rate limiting and security utilities
 - `src/lib/server/audit_chirho.ts` - Audit logging
@@ -92,6 +97,16 @@
 ## Files Modified This Session (2026-01-03)
 
 ```
+# Apple OAuth (new)
+src/routes/api-chirho/auth-chirho/oauth-chirho/apple-chirho/+server.ts
+src/routes/api-chirho/auth-chirho/oauth-chirho/apple-chirho/callback-chirho/+server.ts
+src/routes/auth-chirho/login-chirho/+page.svelte       # Added Apple button + Forgot password link
+src/routes/auth-chirho/register-chirho/+page.svelte    # Added Apple button
+
+# Admin Dashboard Enhancement
+src/routes/admin-chirho/+page.server.ts            # Added support ticket stats queries
+src/routes/admin-chirho/+page.svelte               # Added Open Tickets card with urgent alerts
+
 # Support Ticket Admin UI (new)
 src/routes/admin-chirho/support-chirho/+page.server.ts   # List page server
 src/routes/admin-chirho/support-chirho/+page.svelte      # List page UI
