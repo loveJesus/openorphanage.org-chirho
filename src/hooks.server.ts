@@ -8,6 +8,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.userChirho = null;
 	event.locals.sessionTokenChirho = null;
 
+	// Set platform on locals so pages can access it
+	event.locals.platformChirho = event.platform;
+
 	// Check for session cookie
 	const cookieHeaderChirho = event.request.headers.get('cookie');
 	const sessionTokenChirho = getSessionTokenFromCookiesChirho(cookieHeaderChirho);

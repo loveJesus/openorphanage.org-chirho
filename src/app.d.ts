@@ -35,9 +35,7 @@ declare global {
 				orphanageIdChirho?: string;
 			} | null;
 			sessionTokenChirho: string | null;
-			platformChirho: App.Platform['env'] & {
-				SITE_URL_CHIRHO: string;
-			};
+			platformChirho: App.Platform | undefined;
 		}
 
 		interface PageData {
