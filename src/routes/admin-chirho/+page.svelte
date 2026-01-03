@@ -38,7 +38,7 @@
 	</div>
 
 	<!-- Stats Grid -->
-	<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 		<div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6">
 			<div class="flex items-center gap-4">
 				<div class="w-12 h-12 bg-rose-500/20 rounded-xl flex items-center justify-center">
@@ -68,6 +68,26 @@
 			<div class="mt-4 pt-4 border-t border-slate-700 text-sm">
 				<span class="text-red-400">{statsChirho.urgentNeedsChirho}</span>
 				<span class="text-slate-500"> urgent</span>
+			</div>
+		</div>
+
+		<div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-6 {statsChirho.urgentTicketsChirho > 0 ? 'border-red-500/50' : ''}">
+			<div class="flex items-center gap-4">
+				<div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+					<span class="text-2xl">🎫</span>
+				</div>
+				<div>
+					<p class="text-3xl font-bold text-blue-400">{statsChirho.openTicketsChirho}</p>
+					<p class="text-slate-400 text-sm">Open Tickets</p>
+				</div>
+			</div>
+			<div class="mt-4 pt-4 border-t border-slate-700 text-sm flex justify-between">
+				{#if statsChirho.urgentTicketsChirho > 0}
+					<span class="text-red-400 animate-pulse">🔴 {statsChirho.urgentTicketsChirho} urgent/high</span>
+				{:else}
+					<span class="text-slate-500">No urgent tickets</span>
+				{/if}
+				<a href="/admin-chirho/support-chirho" class="text-blue-400 hover:underline">View →</a>
 			</div>
 		</div>
 

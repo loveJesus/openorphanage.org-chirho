@@ -1,8 +1,8 @@
 // For God so loved the world that He gave His only begotten Son...
 import type { PageServerLoad } from './$types';
 import { getDbChirho } from '$lib/server/db_chirho';
-import { orphanagesChirho, needsChirho, feedbackChirho, usersChirho } from '$lib/server/schema_chirho';
-import { eq, sql, and } from 'drizzle-orm';
+import { orphanagesChirho, needsChirho, feedbackChirho, usersChirho, supportTicketsChirho } from '$lib/server/schema_chirho';
+import { eq, sql, and, or } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ platform }) => {
 	const dbChirho = getDbChirho(platform);
@@ -14,7 +14,9 @@ export const load: PageServerLoad = async ({ platform }) => {
 		pendingFeedbackCountChirho,
 		userCountChirho,
 		verifiedOrphanagesChirho,
-		urgentNeedsChirho
+		urgentNeedsChirho,
+		openTicketsCountChirho,
+		urgentTicketsCountChirho
 	] = await Promise.all([
 		// Total orphanages
 		dbChirho
@@ -50,7 +52,24 @@ export const load: PageServerLoad = async ({ platform }) => {
 		dbChirho
 			.select({ countChirho: sql<number>`count(*)` })
 			.from(needsChirho)
-			.where(and(eq(needsChirho.statusChirho, 'active'), eq(needsChirho.priorityChirho, 'urgent')))
+			.where(and(eq(needsChirho.statusChirho, 'active'), eq(needsChirho.priorityChirho, 'urgent'))),
+
+		// Open support tickets
+		dbChirho
+			.select({ countChirho: sql<number>`count(*)` })
+			.from(supportTicketsChirho)
+			.where(or(eq(supportTicketsChirho.statusChirho, 'open'), eq(supportTicketsChirho.statusChirho, 'in_progress'))),
+
+		// Urgent/high priority tickets
+		dbChirho
+			.select({ countChirho: sql<number>`count(*)` })
+			.from(supportTicketsChirho)
+			.where(
+				and(
+					or(eq(supportTicketsChirho.statusChirho, 'open'), eq(supportTicketsChirho.statusChirho, 'in_progress')),
+					or(eq(supportTicketsChirho.priorityChirho, 'urgent'), eq(supportTicketsChirho.priorityChirho, 'high'))
+				)
+			)
 	]);
 
 	// Get recent feedback
@@ -85,7 +104,9 @@ export const load: PageServerLoad = async ({ platform }) => {
 			activeNeedsChirho: activeNeedsCountChirho[0]?.countChirho || 0,
 			urgentNeedsChirho: urgentNeedsChirho[0]?.countChirho || 0,
 			pendingFeedbackChirho: pendingFeedbackCountChirho[0]?.countChirho || 0,
-			usersChirho: userCountChirho[0]?.countChirho || 0
+			usersChirho: userCountChirho[0]?.countChirho || 0,
+			openTicketsChirho: openTicketsCountChirho[0]?.countChirho || 0,
+			urgentTicketsChirho: urgentTicketsCountChirho[0]?.countChirho || 0
 		},
 		recentFeedbackChirho,
 		pendingVerificationChirho
