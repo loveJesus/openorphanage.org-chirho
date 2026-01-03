@@ -31,6 +31,7 @@
 
 ## Recently Completed
 
+- [x] Fixed OAuth password hash constraint error for new users (2026-01-03)
 - [x] Implemented Apple OAuth authentication (2026-01-03)
 - [x] Added support ticket stats to admin dashboard (2026-01-03)
 - [x] Created support ticket admin management UI (2026-01-03)

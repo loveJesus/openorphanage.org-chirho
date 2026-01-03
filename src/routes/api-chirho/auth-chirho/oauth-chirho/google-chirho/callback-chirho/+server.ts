@@ -190,7 +190,11 @@ export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 		if (errChirho instanceof Response) {
 			throw errChirho; // Re-throw redirects
 		}
-		console.error('Google OAuth callback error:', errChirho);
+		// Detailed error logging for debugging
+		const errorDetailsChirho = errChirho instanceof Error
+			? { message: errChirho.message, stack: errChirho.stack, name: errChirho.name }
+			: JSON.stringify(errChirho);
+		console.error('Google OAuth callback error:', errorDetailsChirho);
 		throw redirect(302, '/auth-chirho/login-chirho?error=oauth_failed');
 	}
 };
