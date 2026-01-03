@@ -7,6 +7,7 @@ import { newsletterSubscribersChirho } from '$lib/server/schema_chirho';
 import { eq } from 'drizzle-orm';
 import { sendEmailChirho, createNewsletterConfirmEmailChirho } from '$lib/server/email_chirho';
 import { checkRateLimitChirho, createRateLimitHeadersChirho, getClientIpChirho } from '$lib/server/security_chirho';
+import { verifyTurnstileChirho, getTurnstileSecretChirho } from '$lib/server/turnstile_chirho';
 
 // Generate secure random token
 function generateTokenChirho(): string {
@@ -35,7 +36,21 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		}
 
 		const bodyChirho = await request.json();
-		const { emailChirho, nameChirho, sourceChirho } = bodyChirho;
+		const { emailChirho, nameChirho, sourceChirho, turnstileTokenChirho } = bodyChirho;
+
+		// Verify Turnstile
+		const turnstileSecretChirho = getTurnstileSecretChirho(platform);
+		const isTurnstileValidChirho = await verifyTurnstileChirho(
+			turnstileTokenChirho || '',
+			ipChirho,
+			turnstileSecretChirho
+		);
+		if (!isTurnstileValidChirho) {
+			return json(
+				{ successChirho: false, errorChirho: 'Security verification failed. Please try again.' },
+				{ status: 400 }
+			);
+		}
 
 		// Validate email
 		if (!emailChirho || typeof emailChirho !== 'string') {

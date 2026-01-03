@@ -6,6 +6,7 @@ import { getKvChirho } from '$lib/server/kv_chirho';
 import { supportTicketsChirho } from '$lib/server/schema_chirho';
 import { logAuditChirho, AUDIT_ACTIONS_CHIRHO, getClientIpChirho as getClientIpAuditChirho, getUserAgentChirho } from '$lib/server/audit_chirho';
 import { checkRateLimitChirho, createRateLimitHeadersChirho, getClientIpChirho } from '$lib/server/security_chirho';
+import { verifyTurnstileChirho, getTurnstileSecretChirho } from '$lib/server/turnstile_chirho';
 import { desc, eq } from 'drizzle-orm';
 
 /**
@@ -34,7 +35,23 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 
 	try {
 		const bodyChirho = await request.json();
-		const { subjectChirho, categoryChirho, contentChirho, emailChirho, nameChirho } = bodyChirho;
+		const { subjectChirho, categoryChirho, contentChirho, emailChirho, nameChirho, turnstileTokenChirho } = bodyChirho;
+
+		// Verify Turnstile (skip for authenticated users)
+		if (!sessionChirho?.userChirho) {
+			const turnstileSecretChirho = getTurnstileSecretChirho(platform);
+			const isTurnstileValidChirho = await verifyTurnstileChirho(
+				turnstileTokenChirho || '',
+				ipChirho,
+				turnstileSecretChirho
+			);
+			if (!isTurnstileValidChirho) {
+				return json(
+					{ successChirho: false, errorChirho: 'Security verification failed. Please try again.' },
+					{ status: 400 }
+				);
+			}
+		}
 
 		// Validation
 		if (!subjectChirho || !contentChirho) {

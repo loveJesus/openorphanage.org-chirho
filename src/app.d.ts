@@ -59,10 +59,16 @@ declare global {
 				TURNSTILE_SITE_KEY_CHIRHO?: string;
 				// Secrets (set via wrangler secret put)
 				MASTER_2SMTP_API_KEY_CHIRHO?: string;
+				SMTP_API_KEY_CHIRHO?: string;
 				MAILU_API_TOKEN_CHIRHO?: string;
 				SESSION_SECRET_CHIRHO?: string;
 				TURNSTILE_SECRET_KEY_CHIRHO?: string;
 				KINGDOM_INVEST_WEBHOOK_SECRET_CHIRHO?: string;
+				// OAuth Credentials
+				GOOGLE_OAUTH_CLIENT_ID_CHIRHO?: string;
+				GOOGLE_OAUTH_CLIENT_SECRET_CHIRHO?: string;
+				GITHUB_OAUTH_CLIENT_ID_CHIRHO?: string;
+				GITHUB_OAUTH_CLIENT_SECRET_CHIRHO?: string;
 			};
 			context: {
 				waitUntil(promise: Promise<unknown>): void;

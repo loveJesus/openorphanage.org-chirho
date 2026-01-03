@@ -5,42 +5,8 @@ import { getDbChirho } from '$lib/server/db_chirho';
 import { feedbackChirho, auditLogChirho } from '$lib/server/schema_chirho';
 import { KvHelperChirho } from '$lib/server/kv_chirho';
 import { checkRateLimitChirho, getClientIpChirho, sanitizeStringChirho } from '$lib/server/security_chirho';
+import { verifyTurnstileChirho } from '$lib/server/turnstile_chirho';
 import { env } from '$env/dynamic/private';
-
-interface TurnstileResponseChirho {
-	success: boolean;
-	'error-codes'?: string[];
-}
-
-async function verifyTurnstileChirho(tokenChirho: string, ipChirho: string): Promise<boolean> {
-	const secretKeyChirho = env.TURNSTILE_SECRET_KEY_CHIRHO;
-
-	if (!secretKeyChirho) {
-		console.warn('Turnstile secret key not configured - skipping verification');
-		return true; // Skip verification if not configured
-	}
-
-	try {
-		const formDataChirho = new FormData();
-		formDataChirho.append('secret', secretKeyChirho);
-		formDataChirho.append('response', tokenChirho);
-		formDataChirho.append('remoteip', ipChirho);
-
-		const responseChirho = await fetch(
-			'https://challenges.cloudflare.com/turnstile/v0/siteverify',
-			{
-				method: 'POST',
-				body: formDataChirho
-			}
-		);
-
-		const resultChirho: TurnstileResponseChirho = await responseChirho.json();
-		return resultChirho.success;
-	} catch (errorChirho) {
-		console.error('Turnstile verification error:', errorChirho);
-		return false;
-	}
-}
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const userChirho = locals.userChirho;
@@ -82,7 +48,11 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		}
 
 		// Verify Turnstile token
-		const isTurnstileValidChirho = await verifyTurnstileChirho(turnstileTokenChirho, ipChirho);
+		const isTurnstileValidChirho = await verifyTurnstileChirho(
+			turnstileTokenChirho,
+			ipChirho,
+			env.TURNSTILE_SECRET_KEY_CHIRHO
+		);
 		if (!isTurnstileValidChirho) {
 			return json({ successChirho: false, errorChirho: 'Security verification failed. Please try again.' }, { status: 400 });
 		}

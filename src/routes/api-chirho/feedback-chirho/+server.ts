@@ -5,6 +5,7 @@ import { getDbChirho, generateIdChirho, nowChirho } from '$lib/server/db_chirho'
 import { getKvChirho } from '$lib/server/kv_chirho';
 import { feedbackChirho } from '$lib/server/schema_chirho';
 import { checkRateLimitChirho, createRateLimitHeadersChirho, getClientIpChirho } from '$lib/server/security_chirho';
+import { verifyTurnstileChirho, getTurnstileSecretChirho } from '$lib/server/turnstile_chirho';
 import { sendEmailChirho, createSafetyConcernEmailChirho, createFeedbackConfirmationEmailChirho } from '$lib/server/email_chirho';
 import type { FeedbackFormDataChirho } from '$lib/types_chirho';
 
@@ -30,8 +31,24 @@ export const POST: RequestHandler = async ({ request, platform, locals }) => {
 		}
 
 		// Parse request body
-		const bodyChirho = await request.json() as FeedbackFormDataChirho;
-		const { categoryChirho, ratingChirho, contentChirho, anonymousChirho, publicVisibleChirho } = bodyChirho;
+		const bodyChirho = await request.json() as FeedbackFormDataChirho & { turnstileTokenChirho?: string };
+		const { categoryChirho, ratingChirho, contentChirho, anonymousChirho, publicVisibleChirho, turnstileTokenChirho } = bodyChirho;
+
+		// Verify Turnstile for anonymous submissions
+		if (!locals.userChirho) {
+			const turnstileSecretChirho = getTurnstileSecretChirho(platform);
+			const isTurnstileValidChirho = await verifyTurnstileChirho(
+				turnstileTokenChirho || '',
+				ipChirho,
+				turnstileSecretChirho
+			);
+			if (!isTurnstileValidChirho) {
+				return json(
+					{ successChirho: false, errorChirho: 'Security verification failed. Please try again.' },
+					{ status: 400 }
+				);
+			}
+		}
 
 		// Validate
 		if (!contentChirho || contentChirho.length < 10) {
