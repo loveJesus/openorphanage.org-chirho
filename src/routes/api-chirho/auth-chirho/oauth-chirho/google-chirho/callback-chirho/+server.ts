@@ -141,11 +141,14 @@ export const GET: RequestHandler = async ({ url, platform, cookies }) => {
 			}
 		} else {
 			// Create new user
+			// OAuth users get a placeholder hash that can never match (starts with "oauth:")
+			const oauthPlaceholderHashChirho = `oauth:${crypto.randomUUID()}`;
 			const resultChirho = await dbChirho
 				.insert(usersChirho)
 				.values({
 					emailChirho: userInfoChirho.emailChirho.toLowerCase(),
 					nameChirho: userInfoChirho.nameChirho,
+					passwordHashChirho: oauthPlaceholderHashChirho,
 					avatarUrlChirho: userInfoChirho.pictureChirho,
 					googleIdChirho: userInfoChirho.idChirho,
 					authProviderChirho: 'google',
