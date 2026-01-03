@@ -18,7 +18,8 @@
 
 ## Active Tasks
 
-- [ ] *No active tasks — ready for next feature*
+- [ ] Apple OAuth implementation
+- [ ] Support ticket admin management UI
 
 ---
 
@@ -30,6 +31,12 @@
 
 ## Recently Completed
 
+- [x] Added Turnstile widgets to frontend forms (newsletter, support, feedback) (2026-01-03)
+- [x] Added Turnstile verification to public form endpoints (2026-01-03)
+- [x] Implemented GitHub OAuth authentication (2026-01-03)
+- [x] Implemented newsletter system with double opt-in (2026-01-03)
+- [x] Added rate limiting to sensitive endpoints (2026-01-03)
+- [x] Fixed Svelte 5 state warnings and a11y issues (2026-01-03)
 - [x] Updated AGENTS.md to v4.0 with FaithStack Master Gist content (2026-01-03)
 - [x] Added Google OAuth 2.0 authentication (2026-01-03)
 - [x] Database migration: OAuth columns (google_id, github_id, apple_id, auth_provider) (2026-01-03)
@@ -52,8 +59,9 @@
 ## Context for Next Session
 
 ### Current State
-- Google OAuth fully functional with session-based auth via KV
-- OAuth route structure ready for GitHub/Apple OAuth expansion
+- Google OAuth + GitHub OAuth fully functional with session-based auth via KV
+- Turnstile protection on all public forms (newsletter, support tickets, feedback)
+- Rate limiting on all sensitive endpoints
 - Homepage uses AI-generated images instead of emoji panels
 - Feature voting system is fully functional at /features-fe
 - All legal pages are in place
@@ -61,19 +69,18 @@
 - Support links point to KingdomInvest.ing campaign
 
 ### What Needs Attention
-- GitHub OAuth implementation (route structure ready)
 - Apple OAuth implementation (route structure ready)
 - Passkeys/WebAuthn (future enhancement)
 - TOTP 2FA (future enhancement)
-- Newsletter double opt-in system
 - Support ticket admin management UI
-- Consider adding Turnstile to feedback forms
 - May want to add more E2E tests for critical paths
 
 ### Key Files
 - `src/routes/+page.svelte` - Homepage with journey steps and features
 - `src/routes/features-fe/+page.svelte` - Feature voting UI
-- `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google implemented)
+- `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google + GitHub implemented)
+- `src/lib/server/turnstile_chirho.ts` - Turnstile verification utility
+- `src/lib/server/security_chirho.ts` - Rate limiting and security utilities
 - `src/lib/server/audit_chirho.ts` - Audit logging
 - `src/lib/server/schema_chirho.ts` - Database schema
 - `src/lib/server/kv_chirho.ts` - KV helper for sessions/OAuth state
@@ -84,13 +91,20 @@
 ## Files Modified This Session (2026-01-03)
 
 ```
-AGENTS.md                          # Updated to v4.0 with FaithStack gist content
-CURRENT_SPRINT_CHIRHO.md           # Updated this file
-src/routes/+layout.svelte          # Support button URLs
-src/routes/+page.svelte            # Support button URLs
-src/routes/dashboard-chirho/+page.svelte           # Support button URL
-src/routes/orphanages-chirho/[id]/+page.svelte     # Support button URL
-src/routes/api-chirho/auth-chirho/oauth-chirho/google-chirho/callback-chirho/+server.ts  # Fixed KV import
+AGENTS.md                                          # Updated to v4.0 with FaithStack gist content
+CURRENT_SPRINT_CHIRHO.md                           # Updated this file
+src/routes/+layout.svelte                          # Turnstile script + newsletter form with Turnstile
+src/routes/support-fe/+page.svelte                 # Turnstile widget for non-authenticated users
+src/routes/feedback-chirho/+page.svelte            # Turnstile widget for non-authenticated users
+src/lib/server/turnstile_chirho.ts                 # Shared Turnstile verification utility (new)
+src/lib/server/security_chirho.ts                  # Added rate limit configs
+src/routes/api-chirho/newsletter-chirho/subscribe-chirho/+server.ts  # Rate limiting + Turnstile
+src/routes/api-chirho/support-chirho/+server.ts    # Rate limiting + Turnstile
+src/routes/api-chirho/feedback-chirho/+server.ts   # Turnstile verification
+src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/+server.ts  # GitHub OAuth initiation
+src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/callback-chirho/+server.ts  # GitHub OAuth callback
+src/routes/auth-chirho/login-chirho/+page.svelte   # GitHub login button
+src/routes/auth-chirho/register-chirho/+page.svelte  # GitHub OAuth button
 ```
 
 ---

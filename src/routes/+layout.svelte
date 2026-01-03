@@ -46,6 +46,9 @@
 	<meta name="robots" content="index, follow" />
 	<link rel="canonical" href="https://openorphanage.org/" />
 
+	<!-- Turnstile Script -->
+	<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -262,6 +265,14 @@
 							const emailChirho = (formChirho.querySelector('input[type=email]') as HTMLInputElement).value;
 							const submitBtnChirho = formChirho.querySelector('button[type=submit]') as HTMLButtonElement;
 							const messageChirho = formChirho.querySelector('.newsletter-message-chirho') as HTMLElement;
+							const turnstileInputChirho = formChirho.querySelector('input[name="cf-turnstile-response"]') as HTMLInputElement | null;
+							const turnstileTokenChirho = turnstileInputChirho?.value || '';
+
+							if (!turnstileTokenChirho && turnstileSiteKeyChirho) {
+								messageChirho.textContent = 'Please complete the security check.';
+								messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+								return;
+							}
 
 							submitBtnChirho.disabled = true;
 							submitBtnChirho.textContent = 'Subscribing...';
@@ -269,7 +280,7 @@
 							fetch('/api-chirho/newsletter-chirho/subscribe-chirho', {
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
-								body: JSON.stringify({ emailChirho, sourceChirho: 'footer' })
+								body: JSON.stringify({ emailChirho, sourceChirho: 'footer', turnstileTokenChirho })
 							})
 								.then(rChirho => rChirho.json())
 								.then(dataChirho => {
@@ -277,6 +288,10 @@
 										messageChirho.textContent = dataChirho.messageChirho;
 										messageChirho.className = 'newsletter-message-chirho text-xs text-teal-400 mt-2';
 										formChirho.reset();
+										// Reset Turnstile widget
+										if (window.turnstile) {
+											window.turnstile.reset();
+										}
 									} else {
 										messageChirho.textContent = dataChirho.errorChirho || 'An error occurred';
 										messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
@@ -308,6 +323,9 @@
 								Subscribe
 							</button>
 						</div>
+						{#if turnstileSiteKeyChirho}
+							<div class="cf-turnstile mt-2" data-sitekey={turnstileSiteKeyChirho} data-theme="dark" data-size="compact"></div>
+						{/if}
 						<p class="newsletter-message-chirho text-xs text-slate-500 mt-2">No spam, unsubscribe anytime.</p>
 					</form>
 				</div>

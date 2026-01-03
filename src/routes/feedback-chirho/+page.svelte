@@ -1,9 +1,12 @@
 <!-- For God so loved the world that He gave His only begotten Son... -->
 <script lang="ts">
 	import type { FeedbackCategoryChirho } from '$lib/types_chirho';
+	import { browser } from '$app/environment';
 
-	
 	let { data } = $props();
+
+	const userChirho = $derived(data?.userChirho);
+	const turnstileSiteKeyChirho = $derived(data?.turnstileSiteKeyChirho || '');
 
 	// Form state
 	let categoryChirho = $state<FeedbackCategoryChirho>('general');
@@ -14,6 +17,24 @@
 	let submittingChirho = $state(false);
 	let successChirho = $state(false);
 	let errorChirho = $state('');
+	let turnstileWidgetIdChirho = $state<string | null>(null);
+	let turnstileContainerChirho = $state<HTMLDivElement | null>(null);
+
+	// Render Turnstile widget when container is ready (only for non-authenticated users)
+	$effect(() => {
+		if (browser && !userChirho && turnstileSiteKeyChirho && turnstileContainerChirho && window.turnstile) {
+			// Clear any existing widget
+			if (turnstileWidgetIdChirho) {
+				window.turnstile.remove(turnstileWidgetIdChirho);
+			}
+			// Render new widget
+			turnstileWidgetIdChirho = window.turnstile.render(turnstileContainerChirho, {
+				sitekey: turnstileSiteKeyChirho,
+				theme: 'dark',
+				size: 'normal'
+			});
+		}
+	});
 
 	const categoriesChirho: { valueChirho: FeedbackCategoryChirho; labelChirho: string; iconChirho: string; colorChirho: string }[] = [
 		{ valueChirho: 'general', labelChirho: 'General Feedback', iconChirho: '💬', colorChirho: 'bg-blue-500/20 border-blue-500/50 text-blue-400' },
@@ -27,6 +48,17 @@
 		submittingChirho = true;
 		errorChirho = '';
 
+		// Get Turnstile token for non-authenticated users
+		let turnstileTokenChirho = '';
+		if (!userChirho && turnstileSiteKeyChirho && window.turnstile) {
+			turnstileTokenChirho = window.turnstile.getResponse(turnstileWidgetIdChirho || undefined) || '';
+			if (!turnstileTokenChirho) {
+				errorChirho = 'Please complete the security verification.';
+				submittingChirho = false;
+				return;
+			}
+		}
+
 		try {
 			const responseChirho = await fetch('/api-chirho/feedback-chirho', {
 				method: 'POST',
@@ -36,7 +68,8 @@
 					ratingChirho,
 					contentChirho,
 					anonymousChirho,
-					publicVisibleChirho
+					publicVisibleChirho,
+					turnstileTokenChirho
 				})
 			});
 
@@ -47,6 +80,10 @@
 				// Reset form
 				contentChirho = '';
 				ratingChirho = undefined;
+				// Reset Turnstile widget
+				if (window.turnstile && turnstileWidgetIdChirho) {
+					window.turnstile.reset(turnstileWidgetIdChirho);
+				}
 			} else {
 				errorChirho = resultChirho.errorChirho || 'Failed to submit feedback';
 			}
@@ -189,6 +226,14 @@
 				{#if errorChirho}
 					<div class="bg-red-500/20 border border-red-500/50 rounded-xl p-4 text-red-400">
 						{errorChirho}
+					</div>
+				{/if}
+
+				<!-- Turnstile Widget (only for non-authenticated users) -->
+				{#if !userChirho && turnstileSiteKeyChirho}
+					<div class="bg-slate-800/30 border border-slate-700 rounded-xl p-4">
+						<p class="text-sm text-slate-400 mb-3">Please verify you're human:</p>
+						<div bind:this={turnstileContainerChirho}></div>
 					</div>
 				{/if}
 

@@ -1,8 +1,10 @@
 <!-- For God so loved the world that He gave His only begotten Son... -->
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
 
 	const userChirho = $derived($page.data?.userChirho);
+	const turnstileSiteKeyChirho = $derived($page.data?.turnstileSiteKeyChirho || '');
 
 	let formDataChirho = $state({
 		nameChirho: '',
@@ -15,7 +17,6 @@
 	// Sync initial values from user data
 	$effect(() => {
 		if (userChirho) {
-			formDataChirho.nameChirho = userChirho.nameChirho || '';
 			formDataChirho.emailChirho = userChirho.emailChirho || '';
 		}
 	});
@@ -24,27 +25,64 @@
 	let successChirho = $state(false);
 	let errorChirho = $state('');
 	let ticketIdChirho = $state<number | null>(null);
+	let turnstileWidgetIdChirho = $state<string | null>(null);
+	let turnstileContainerChirho = $state<HTMLDivElement | null>(null);
+
+	// Render Turnstile widget when container is ready (only for non-authenticated users)
+	$effect(() => {
+		if (browser && !userChirho && turnstileSiteKeyChirho && turnstileContainerChirho && window.turnstile) {
+			// Clear any existing widget
+			if (turnstileWidgetIdChirho) {
+				window.turnstile.remove(turnstileWidgetIdChirho);
+			}
+			// Render new widget
+			turnstileWidgetIdChirho = window.turnstile.render(turnstileContainerChirho, {
+				sitekey: turnstileSiteKeyChirho,
+				theme: 'dark',
+				size: 'normal'
+			});
+		}
+	});
 
 	async function submitTicketChirho(eventChirho: Event) {
 		eventChirho.preventDefault();
 		submittingChirho = true;
 		errorChirho = '';
 
+		// Get Turnstile token for non-authenticated users
+		let turnstileTokenChirho = '';
+		if (!userChirho && turnstileSiteKeyChirho && window.turnstile) {
+			turnstileTokenChirho = window.turnstile.getResponse(turnstileWidgetIdChirho || undefined) || '';
+			if (!turnstileTokenChirho) {
+				errorChirho = 'Please complete the security verification.';
+				submittingChirho = false;
+				return;
+			}
+		}
+
 		try {
 			const responseChirho = await fetch('/api-chirho/support-chirho', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(formDataChirho)
+				body: JSON.stringify({
+					...formDataChirho,
+					turnstileTokenChirho
+				})
 			});
 
 			const dataChirho = await responseChirho.json();
 
 			if (!responseChirho.ok) {
-				throw new Error(dataChirho.message || 'Failed to submit ticket');
+				throw new Error(dataChirho.message || dataChirho.errorChirho || 'Failed to submit ticket');
 			}
 
 			successChirho = true;
 			ticketIdChirho = dataChirho.ticketIdChirho;
+
+			// Reset Turnstile widget
+			if (window.turnstile && turnstileWidgetIdChirho) {
+				window.turnstile.reset(turnstileWidgetIdChirho);
+			}
 		} catch (errChirho) {
 			errorChirho = errChirho instanceof Error ? errChirho.message : 'An error occurred';
 		} finally {
@@ -179,6 +217,14 @@
 						placeholder="Please describe your issue in detail..."
 					></textarea>
 				</div>
+
+				<!-- Turnstile Widget (only for non-authenticated users) -->
+				{#if !userChirho && turnstileSiteKeyChirho}
+					<div class="bg-slate-800/30 border border-slate-700 rounded-lg p-4">
+						<p class="text-sm text-slate-400 mb-3">Please verify you're human:</p>
+						<div bind:this={turnstileContainerChirho}></div>
+					</div>
+				{/if}
 
 				<div class="flex items-center gap-4">
 					<button
