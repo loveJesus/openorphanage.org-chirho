@@ -2,7 +2,7 @@
 import type { PageServerLoad } from './$types';
 import { getDbChirho } from '$lib/server/db_chirho';
 import { orphanagesChirho, needsChirho, feedbackChirho, usersChirho } from '$lib/server/schema_chirho';
-import { eq, sql, and, gte } from 'drizzle-orm';
+import { eq, sql, and } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ platform }) => {
 	const dbChirho = getDbChirho(platform);

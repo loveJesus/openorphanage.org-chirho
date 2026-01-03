@@ -1,6 +1,6 @@
 # For God so loved the world, that He gave His only begotten Son, that all who believe in Him should not perish but have everlasting life. — John 3:16
 
-# OpenOrphanage.org — FaithStack AI Agent Instructions (v3.0)
+# OpenOrphanage.org — FaithStack AI Agent Instructions (v4.0)
 
 > **The Gospel:** Jesus Christ, the Son of God, died for our sins, was buried, and rose again on the third day according to the Scriptures. Whoever believes in Him shall not perish but have eternal life. (1 Corinthians 15:3-4, John 3:16)
 
@@ -37,6 +37,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+---
+
+## FaithStack Master Gist Reference
+
+**For detailed implementations, reference the FaithStack Master Gist:**
+https://gist.github.com/loveJesus/c93fbd61bc1dd6d898ef89c4b6981694
+
+| Gist File | Purpose | When to Reference |
+|-----------|---------|-------------------|
+| `01-AGENTS_MASTER_CHIRHO.md` | Master AGENTS template | Setting up new projects |
+| `02-TESTING_CHIRHO.md` | Solo dev testing strategy | Writing tests |
+| `03-COMMUNITY_FEEDBACK_CHIRHO.md` | Feedback, tickets, Q&A, surveys | Building feedback systems |
+| `04-DATABASE_AUDIT_CHIRHO.md` | Cloudflare Pipelines audit | Setting up audit logging |
+| `05-BEST_PRACTICES_CHIRHO.md` | 40+ sections of guidance | Auth, payments, compliance |
+| `06-CURRENT_SPRINT_TEMPLATE_CHIRHO.md` | Sprint tracking template | Session handoffs |
+| `07-BASIC_WEBSITE_GIST_CHIRHO.md` | Simple website checklist | Marketing sites |
 
 ---
 
@@ -96,6 +113,8 @@ OpenOrphanage is part of a holistic FaithStack ecosystem that walks with childre
 ---
 
 ## 1. The Prime Directive
+
+**YOU ARE A SPEC-DRIVEN AI AGENT.** Implement exactly what is specified, no more, no less.
 
 ### 1.1 Read Spec First — It's the Source of Truth
 
@@ -169,6 +188,9 @@ spec_chirho/                          ← ULTIMATE SOURCE OF TRUTH
 | **Variables** | `camelCase` | `Chirho` | `userDataChirho`, `isLoadingChirho`, `countChirho` |
 | **Functions** | `camelCase` | `Chirho` | `fetchUsersChirho()`, `validateInputChirho()`, `handleClickChirho()` |
 | **Async Functions** | `camelCase` | `Chirho` | `async loadDataChirho()`, `async submitFormChirho()` |
+| **Parameters** | `camelCase` | `Chirho` | `function foo(dataChirho: string)` |
+| **Loop Variables** | `camelCase` | `Chirho` | `for (const itemChirho of items)` |
+| **Lambda Variables** | `camelCase` | `Chirho` | `.filter((xChirho) => xChirho.active)` |
 | **Classes** | `PascalCase` | `Chirho` | `UserServiceChirho`, `DatabaseClientChirho` |
 | **Svelte Components** | `PascalCase` | `Chirho` | `FeedbackBubbleChirho.svelte`, `NavBarChirho.svelte` |
 | **Types/Interfaces** | `PascalCase` | `Chirho` | `UserChirho`, `OrphanageDataChirho`, `ApiResponseChirho` |
@@ -183,78 +205,22 @@ spec_chirho/                          ← ULTIMATE SOURCE OF TRUTH
 | **File Names (TS/JS)** | `snake_case` | `_chirho` | `auth_chirho.ts`, `db_chirho.ts`, `email_chirho.ts` |
 | **File Names (Svelte)** | `PascalCase` | `Chirho` | `HeaderChirho.svelte`, `FooterChirho.svelte` |
 | **CSS Classes** | `kebab-case` | `-chirho` | `btn-primary-chirho`, `card-chirho` |
-| **KV Keys** | Various | `_chirho` | `session:{id}_chirho`, `rate:{ip}_chirho` |
+| **KV Keys** | `kebab-case:kebab-case` | `-chirho` | `session-chirho:id123-chirho`, `rate-chirho:ip-chirho` |
+| **JSON API Props** | `camelCase` | `Chirho` | `successChirho`, `dataChirho`, `errorChirho` |
+| **R2 Buckets** | `kebab-case` | `-chirho` | `audit-logs-chirho`, `media-chirho` |
+| **Wrangler Bindings** | `SCREAMING_SNAKE` | `_CHIRHO` | `DB_CHIRHO`, `KV_CHIRHO`, `R2_CHIRHO` |
 
-### 2.2 Suffix Examples in Practice
+### 2.2 What NOT to Suffix
 
-```typescript
-// For God so loved the world that He gave His only begotten Son...
+- **Framework files:** `+page.svelte`, `+server.ts`, `vite.config.ts`, `package.json`
+- **Framework directories:** `src/`, `routes/`, `lib/`, `static/`, `node_modules/`
+- **Third-party imports:** `import { redirect } from '@sveltejs/kit'`
+- **Framework functions:** `json()`, `error()`, `redirect()`, `fetch()`
+- **Node/Bun globals:** `console`, `process`, `crypto`, `Request`, `Response`
+- **Standard properties:** `id`, `name`, `email` when interfacing with external APIs
+- **HTML attributes:** `class`, `id`, `href`, `src` (but values can have `-chirho`)
 
-// Variables
-const userChirho = await fetchUserChirho(idChirho);
-let isLoadingChirho = true;
-const maxRetriesChirho = 3;
-
-// Functions
-function validateEmailChirho(emailChirho: string): boolean {
-  const regexChirho = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return regexChirho.test(emailChirho);
-}
-
-async function loadOrphanagesChirho(): Promise<OrphanageChirho[]> {
-  const responseChirho = await fetch('/api-chirho/orphanages-chirho');
-  const dataChirho = await responseChirho.json();
-  return dataChirho.orphanagesChirho;
-}
-
-// Types and Interfaces
-interface UserChirho {
-  idChirho: number;
-  emailChirho: string;
-  nameChirho: string;
-  roleChirho: UserRoleChirho;
-  createdAtChirho: string;
-}
-
-type ApiResponseChirho<T> = {
-  successChirho: boolean;
-  dataChirho?: T;
-  errorChirho?: string;
-};
-
-// Enums
-enum UserRoleChirho {
-  PUBLIC_CHIRHO = 'public',
-  DONOR_CHIRHO = 'donor',
-  STAFF_CHIRHO = 'staff',
-  ADMIN_CHIRHO = 'admin',
-  SUPER_ADMIN_CHIRHO = 'super_admin'
-}
-
-// Constants
-const MAX_FILE_SIZE_CHIRHO = 10 * 1024 * 1024; // 10MB
-const SESSION_DURATION_CHIRHO = 30 * 24 * 60 * 60 * 1000; // 30 days
-const RATE_LIMIT_CHIRHO = 100; // requests per minute
-
-// Classes
-class EmailServiceChirho {
-  private apiKeyChirho: string;
-
-  constructor(apiKeyChirho: string) {
-    this.apiKeyChirho = apiKeyChirho;
-  }
-
-  async sendEmailChirho(toChirho: string, subjectChirho: string, bodyChirho: string) {
-    // Implementation
-  }
-}
-```
-
-### 2.3 Framework Directories (No Suffix)
-
-Keep standard SvelteKit/framework names: `src/`, `routes/`, `lib/`, `static/`, `node_modules/`
-
-### 2.4 The Divine Header
+### 2.3 The Divine Header
 
 Every project file must include John 3:16 at the top:
 
@@ -269,9 +235,6 @@ Every project file must include John 3:16 at the top:
 ```
 ```sql
 -- For God so loved the world that He gave His only begotten Son...
-```
-```css
-/* For God so loved the world that He gave His only begotten Son... */
 ```
 
 ---
@@ -299,7 +262,7 @@ tech_stack_chirho:
     - Bun only (NEVER npm, yarn, or pnpm)
 
   email:
-    - 2SMTP relay (outbound) - 10,000 emails for $5
+    - 2SMTP relay (outbound) - 10,000 emails for $5, 40 msgs/min
     - MAILU API (mailbox management)
     - .fe extension on addresses
 
@@ -308,6 +271,11 @@ tech_stack_chirho:
     - CSRF protection via double-submit cookie
     - Rate limiting via KV
     - Turnstile (NOT reCAPTCHA)
+
+  authentication:
+    - Email/password with bcrypt
+    - Google OAuth 2.0
+    - Future: Passkeys (WebAuthn), GitHub OAuth, Apple OAuth
 ```
 
 ### 3.2 Cloudflare Workers Deployment
@@ -338,6 +306,9 @@ d1_tables_chirho:
     - email_chirho (text, unique)
     - password_hash_chirho (text, bcrypt 12 rounds)
     - role_chirho (text, enum)
+    - google_id_chirho (text, unique, nullable) # OAuth
+    - avatar_url_chirho (text, nullable)
+    - auth_provider_chirho (text, enum: email/google/github/apple)
     - created_at_chirho (text, ISO timestamp)
 
   orphanages_chirho:
@@ -351,6 +322,7 @@ kv_patterns_chirho:
   - "feedback:{id}:content" → feedback details
   - "session:{token}" → session data
   - "rate:{ip}:{endpoint}" → rate limiting
+  - "oauth_state:{state}" → OAuth CSRF state
 ```
 
 ---
@@ -364,22 +336,39 @@ kv_patterns_chirho:
 MASTER_2SMTP_API_KEY_CHIRHO=xxx
 TURNSTILE_SECRET_KEY_CHIRHO=xxx
 SESSION_SECRET_CHIRHO=xxx
-KINGDOM_INVEST_WEBHOOK_SECRET_CHIRHO=xxx
+GOOGLE_OAUTH_CLIENT_ID_CHIRHO=xxx
+GOOGLE_OAUTH_CLIENT_SECRET_CHIRHO=xxx
 
 # Production - Use wrangler secret put
 wrangler secret put MASTER_2SMTP_API_KEY_CHIRHO
 wrangler secret put TURNSTILE_SECRET_KEY_CHIRHO
 wrangler secret put SESSION_SECRET_CHIRHO
-wrangler secret put KINGDOM_INVEST_WEBHOOK_SECRET_CHIRHO
+wrangler secret put GOOGLE_OAUTH_CLIENT_ID_CHIRHO
+wrangler secret put GOOGLE_OAUTH_CLIENT_SECRET_CHIRHO
 ```
 
-### 4.2 Required Secrets
+### 4.2 .gitignore Must Include
+
+```
+.env
+.env.local
+.env.*
+*.env
+.dev.vars
+client_secret*.json
+oauth-credentials*.json
+service-account*.json
+```
+
+### 4.3 Required Secrets
 
 | Secret | Purpose |
 |--------|---------|
 | `MASTER_2SMTP_API_KEY_CHIRHO` | Email sending |
 | `TURNSTILE_SECRET_KEY_CHIRHO` | Spam protection |
 | `SESSION_SECRET_CHIRHO` | Session encryption |
+| `GOOGLE_OAUTH_CLIENT_ID_CHIRHO` | Google OAuth |
+| `GOOGLE_OAUTH_CLIENT_SECRET_CHIRHO` | Google OAuth |
 | `STRIPE_SECRET_KEY_CHIRHO` | Payment processing |
 | `STRIPE_WEBHOOK_SECRET_CHIRHO` | Webhook verification |
 
@@ -414,15 +403,19 @@ Every page must include this footer structure:
 ```yaml
 email_config_chirho:
   outbound_via_2smtp:
-    relay_host: "smtp.2smtp.com"
-    port: 587
+    endpoint: "https://2smtp.com/api_fe/send_email_fe"
     pricing: "10,000 emails for $5"
-    rate_limit: "100/minute"
+    rate_limit: "40 msgs/minute"
 
   addresses:
     noreply: "noreply.fe@openorphanage.org"
     support: "support.fe@openorphanage.org"
     admin: "admin.fe@openorphanage.org"
+
+  newsletter:
+    double_opt_in: required
+    unsubscribe_header: "List-Unsubscribe: <https://openorphanage.org/unsubscribe?token=XXX>"
+    batch_sending: "10 emails per 15 seconds"
 
   dns_records:
     spf: "v=spf1 include:_spf.2smtp.com ~all"
@@ -441,7 +434,7 @@ Every page must include the `FeedbackBubbleChirho.svelte` component with Turnsti
 ```yaml
 feedback_bubble_chirho:
   position: "fixed bottom-4 right-4"
-  types: [Bug, Feature, Praise, Question]
+  types: [Bug, Feature, Praise, Question, Safety Concern]
   fields:
     - type_chirho (required)
     - content_chirho (required)
@@ -452,13 +445,6 @@ feedback_bubble_chirho:
   spam_protection: Turnstile
   safety_escalation:
     - "Safety Concern" → immediate admin notification
-```
-
-### 7.2 API Endpoint
-
-```typescript
-// POST /api-chirho/feedback-bubble-chirho
-// Validates Turnstile, stores in KV, logs metadata
 ```
 
 ---
@@ -494,13 +480,6 @@ design_approach_chirho:
     - mcp__imagen__imagen_t2i  # Generate images from text prompts
     - mcp__imagen__imagen_edit_inpainting_insert  # Edit existing images
 
-  css_techniques:
-    - Background images with gradient overlays
-    - Glassmorphism (backdrop-blur)
-    - Creative clip-paths and shapes
-    - Animated gradients
-    - Custom SVG patterns
-
   philosophy: |
     Our platform serves orphans and orphanages — it deserves thoughtful,
     original design that reflects the gravity and hope of our mission.
@@ -518,12 +497,9 @@ image_guidelines_chirho:
     feature: 800x600
     thumbnail: 400x300
     avatar: 200x200
+    og_image: 1200x630
 
   naming_convention: "{purpose}-{description}-chirho.{ext}"
-  examples:
-    - feature-transparency-chirho.png
-    - journey-openorphanage-chirho.png
-    - logo-icon-chirho.png
 ```
 
 ---
@@ -571,6 +547,7 @@ Test **what makes money** and **what protects users**. Skip visual regression an
 - You are the developer, QA, and ops team
 - Time spent on tests = time not shipping features
 - Test the money path, not the edge cases
+- All tests must run under 30 seconds
 
 ### 10.2 Configuration
 
@@ -578,16 +555,13 @@ Test **what makes money** and **what protects users**. Skip visual regression an
 testing_config_chirho:
   unit_tests:
     framework: Vitest
-    config_file: vitest.config.ts
     pattern: "src/**/*.test.ts"
     environment: node
     timeout: 5000ms
 
   e2e_tests:
     framework: Playwright
-    config_file: playwright.config.ts
     directory: tests-e2e-chirho/
-    pattern: "**/*.e2e.ts"
     browser: chromium only
     headless: true  # CRITICAL: Never open GUI
     timeout: 10000ms
@@ -613,22 +587,11 @@ test_priorities_chirho:
   medium:
     - API validation
     - Email validation
-    - UUID validation
 
   skip_in_ci:
     - Visual regression
     - Component rendering
     - Real third-party API calls (mock instead)
-```
-
-### 10.4 Scripts
-
-```bash
-bun run test-chirho         # Unit tests only (fast)
-bun run test-watch-chirho   # Watch mode
-bun run test-e2e-chirho     # E2E tests (headless)
-bun run test-all-chirho     # All tests
-bun run deploy-chirho       # test → build → wrangler deploy
 ```
 
 ---
@@ -645,17 +608,17 @@ feedback_systems_chirho:
     - Auto-categorization
 
   support_tickets:
-    - SLA tracking (1 hour to 1 week based on priority)
+    - SLA tracking (1 hour to 48 hours based on priority)
     - Human escalation rules
-    - AI auto-response after 30 minutes
+    - /support-fe page
 
   feature_voting:
     - User roadmap voting at /features-fe
     - Thresholds: 5 votes = weekly report, 10+ = alert human
 
   community_qa:
-    - Peer support forum
-    - AI auto-answer for common questions
+    - Peer support (future)
+    - AI auto-answer for common questions (future)
 ```
 
 ### 11.2 Escalation Rules
@@ -665,39 +628,32 @@ escalation_rules_chirho:
   always_human:
     - Billing/payment issues
     - Safety concerns
-    - Low AI confidence (<70%)
     - SLA violation imminent
 
-  ai_monitoring:
-    cron: "*/5 * * * *"  # Every 5 minutes
-    daily_digest: "0 8 * * *"  # 8am UTC
+  current_implementation:
+    - Support tickets at /support-fe
+    - Feature requests at /features-fe
+    - Feedback bubble on all pages
 ```
 
 ---
 
 ## 12. Database Audit Logging
 
-### 12.1 Using Cloudflare Pipelines
+### 12.1 Current Implementation
 
-```yaml
-audit_logging_chirho:
-  storage: Cloudflare Pipelines → R2 (Apache Iceberg)
+We use `audit_log_chirho` table in D1 with the `logAuditChirho()` function:
 
-  logged_operations:
-    - INSERT
-    - UPDATE
-    - DELETE
-
-  captured_fields:
-    - timestamp_chirho
-    - user_id_chirho
-    - operation_chirho
-    - table_chirho
-    - record_id_chirho
-    - changes_chirho (redacted)
-    - ip_address_chirho
-    - user_agent_chirho
-    - request_path_chirho
+```typescript
+await logAuditChirho(dbChirho, {
+  userIdChirho: sessionChirho.userChirho.idChirho,
+  actionChirho: AUDIT_ACTIONS_CHIRHO.FEATURE_VOTED,
+  entityTypeChirho: 'feature_request',
+  entityIdChirho: featureIdChirho,
+  detailsChirho: { voteTypeChirho, voteChangeChirho },
+  ipAddressChirho: getClientIpChirho(request),
+  userAgentChirho: getUserAgentChirho(request)
+});
 ```
 
 ### 12.2 Automatic Redaction
@@ -715,27 +671,50 @@ redacted_fields_chirho:
   - session
 ```
 
-### 12.3 Current Implementation
+### 12.3 Future: Cloudflare Pipelines
 
-We use `audit_log_chirho` table in D1 with the `logAuditChirho()` function:
-
-```typescript
-await logAuditChirho(dbChirho, {
-  userIdChirho: sessionChirho.userChirho.idChirho,
-  actionChirho: AUDIT_ACTIONS_CHIRHO.FEATURE_VOTED,
-  entityTypeChirho: 'feature_request',
-  entityIdChirho: featureIdChirho,
-  detailsChirho: { voteTypeChirho, voteChangeChirho },
-  ipAddressChirho: getClientIpChirho(request),
-  userAgentChirho: getUserAgentChirho(request)
-});
-```
+For high-volume audit logging, see `04-DATABASE_AUDIT_CHIRHO.md` in the gist for Cloudflare Pipelines setup with R2 and Apache Iceberg.
 
 ---
 
-## 13. Best Practices
+## 13. Authentication
 
-### 13.1 Legal Pages (Required)
+### 13.1 Current Implementation
+
+```yaml
+auth_methods_chirho:
+  implemented:
+    - Email/password with bcrypt (12 rounds)
+    - Google OAuth 2.0
+
+  future:
+    - Passkeys (WebAuthn) - phishing-resistant
+    - TOTP 2FA - authenticator apps
+    - GitHub OAuth
+    - Apple OAuth
+```
+
+### 13.2 OAuth Route Structure
+
+```
+/api-chirho/auth-chirho/oauth-chirho/
+├── google-chirho/
+│   ├── +server.ts           # Initiates OAuth flow
+│   └── callback-chirho/
+│       └── +server.ts       # Handles callback
+├── github-chirho/           # Future
+└── apple-chirho/            # Future
+```
+
+### 13.3 Super Admin Auto-Setup
+
+`blvgsu@gmail.com` automatically becomes `super_admin` on first Google OAuth login.
+
+---
+
+## 14. Best Practices
+
+### 14.1 Legal Pages (Required)
 
 | Route | Content |
 |-------|---------|
@@ -746,7 +725,7 @@ await logAuditChirho(dbChirho, {
 | `/cookie-policy-fe` | Cookie consent |
 | `/refund-policy-fe` | Refund terms |
 
-### 13.2 GDPR Compliance
+### 14.2 GDPR Compliance
 
 ```yaml
 gdpr_requirements_chirho:
@@ -760,7 +739,7 @@ gdpr_requirements_chirho:
     - Document lawful basis
 ```
 
-### 13.3 Stripe Webhooks (CRITICAL)
+### 14.3 Stripe Webhooks (CRITICAL)
 
 ```typescript
 // CRITICAL: Use constructEventAsync() on Cloudflare Workers
@@ -781,23 +760,7 @@ const eventChirho = await stripeChirho.webhooks.constructEventAsync(
 // const event = stripe.webhooks.constructEvent(...);
 ```
 
-### 13.4 API Key Management
-
-```yaml
-api_key_format_chirho:
-  format: "prefix_base64randomdata"
-  prefixes:
-    live: "sk_live_"
-    test: "sk_test_"
-    public: "pk_live_"
-
-  storage:
-    - Hash with SHA-256 (4x sequential)
-    - Never store plaintext
-    - Show only last 4 characters to user
-```
-
-### 13.5 Security Headers
+### 14.4 Security Headers
 
 ```typescript
 const SECURITY_HEADERS_CHIRHO = {
@@ -810,7 +773,19 @@ const SECURITY_HEADERS_CHIRHO = {
 };
 ```
 
-### 13.6 Performance Targets
+### 14.5 Rate Limiting Strategy
+
+Limits should be **invisible to normal users**:
+
+| Endpoint | Limit | Window | Rationale |
+|----------|-------|--------|-----------|
+| Public pages | 200/min | Per IP | Don't block browsing |
+| API reads | 100/min | Per user | Normal use: 20-30/min |
+| API writes | 30/min | Per user | Prevents spam |
+| Auth | 10/min | Per IP | Blocks brute force |
+| Signup | 5/hour | Per IP | Prevents mass account creation |
+
+### 14.6 Performance Targets
 
 ```yaml
 performance_chirho:
@@ -824,7 +799,7 @@ performance_chirho:
     bundle_size: "<200KB gzipped"
 ```
 
-### 13.7 Accessibility (WCAG 2.1 AA)
+### 14.7 Accessibility (WCAG 2.1 AA)
 
 ```yaml
 accessibility_chirho:
@@ -832,51 +807,27 @@ accessibility_chirho:
     - All images have alt text
     - Color contrast ratio ≥4.5:1
     - Keyboard navigation works
-    - Focus indicators visible
+    - Focus indicators visible (3px outline)
     - ARIA labels where needed
     - Skip to content link
+    - Headings in proper hierarchy
 ```
 
-### 13.8 Mobile Responsiveness
-
-```yaml
-breakpoints_chirho:
-  sm: "640px"
-  md: "768px"
-  lg: "1024px"
-  xl: "1280px"
-  2xl: "1536px"
-```
-
-### 13.9 Referral System
+### 14.8 Referral System (Future)
 
 ```yaml
 referral_system_chirho:
-  payout_delay: "2 weeks"  # Prevent fraud/chargebacks
-  tracking: "referral code in URL"
-  attribution_window: "30 days"
-```
-
-### 13.10 Rich Previews (Open Graph)
-
-```yaml
-og_meta_chirho:
-  required_tags:
-    - og:title
-    - og:description
-    - og:image (1200x630px minimum)
-    - og:url
-    - og:type
-  twitter_cards:
-    - twitter:card
-    - twitter:title
-    - twitter:description
-    - twitter:image
+  anti_fraud:
+    - 2-week payout delay (prevents chargebacks)
+    - Minimum $1 purchase to qualify
+    - 30-day refund window cancels referral
+    - Account age requirement: 7+ days
+    - Monthly limit: 50 referrals/user
 ```
 
 ---
 
-## 14. Directory Structure
+## 15. Directory Structure
 
 ```
 openorphanage.org-chirho/
@@ -902,12 +853,14 @@ openorphanage.org-chirho/
 │   ├── lib/
 │   │   ├── components/
 │   │   │   ├── FeedbackBubbleChirho.svelte
+│   │   │   ├── CookieConsentChirho.svelte
 │   │   │   └── ...
 │   │   │
 │   │   ├── server/
 │   │   │   ├── db_chirho.ts
 │   │   │   ├── schema_chirho.ts
 │   │   │   ├── auth_chirho.ts
+│   │   │   ├── kv_chirho.ts
 │   │   │   ├── security_chirho.ts
 │   │   │   ├── email_chirho.ts
 │   │   │   └── audit_chirho.ts
@@ -920,23 +873,30 @@ openorphanage.org-chirho/
 │       ├── privacy-fe/
 │       ├── terms-fe/
 │       ├── features-fe/
+│       ├── support-fe/
 │       ├── orphanages-chirho/
 │       ├── dashboard-chirho/
 │       ├── admin-chirho/
 │       └── api-chirho/
+│           ├── feedback-bubble-chirho/
+│           ├── auth-chirho/
+│           │   └── oauth-chirho/
+│           │       └── google-chirho/
+│           ├── gdpr-chirho/
+│           └── ...
 │
 ├── tests-e2e-chirho/
-│   ├── homepage.e2e.ts
-│   └── auth.e2e.ts
+│   └── *.e2e.ts
 │
 └── static/
     ├── favicon.svg
-    └── *.jpg  # Prefer JPG for photos
+    ├── og-image-chirho.png
+    └── *.jpg
 ```
 
 ---
 
-## 15. Quick Commands
+## 16. Quick Commands
 
 ```bash
 # Development
@@ -963,9 +923,9 @@ wrangler secret list
 
 ---
 
-## 16. Git & Authorship Protocol
+## 17. Git & Authorship Protocol
 
-### 16.1 Commit Message Format
+### 17.1 Commit Message Format
 
 ```bash
 git commit -m "$(cat <<'EOF'
@@ -981,15 +941,11 @@ EOF
 )"
 ```
 
-### 16.2 AI-CHIRHO Marker
+### 17.2 AI-CHIRHO Marker
 
-When AI makes commits autonomously, include `[AI-CHIRHO]` in the author or commit body for traceability:
+When AI makes commits autonomously, include `[AI-CHIRHO]` in the author or commit body for traceability.
 
-```
-Author: AI-CHIRHO <ai@openorphanage.org>
-```
-
-### 16.3 Branch Conventions
+### 17.3 Branch Conventions
 
 ```yaml
 branches_chirho:
@@ -1000,46 +956,55 @@ branches_chirho:
 
 ---
 
-## 17. Zero-Context Resumability
+## 18. Zero-Context Resumability
 
-### 17.1 CURRENT_SPRINT_CHIRHO.md
+### 18.1 The Goal
 
-Every session should maintain a `CURRENT_SPRINT_CHIRHO.md` file for handoffs:
+Any AI agent, from any machine, with zero prior context, can:
+
+```
+1. Clone the repo
+2. Read AGENTS.md → knows all permanent rules
+3. Read CURRENT_SPRINT_CHIRHO.md → knows current state
+4. Continue work immediately
+```
+
+No re-explaining. No "where did we leave off." The repo IS the context.
+
+### 18.2 CURRENT_SPRINT_CHIRHO.md
+
+Every session should maintain `CURRENT_SPRINT_CHIRHO.md` for handoffs:
 
 ```markdown
 # Current Sprint — OpenOrphanage
 
 ## Active Task
-- [ ] Implementing feature voting system
+- [ ] Current task description
 
 ## Blocking Issues
-- None
+- None (or list blockers)
 
 ## Recently Completed
-- [x] Added GDPR endpoints (2024-01-02)
-- [x] Created legal pages (2024-01-02)
+- [x] Task with date
 
 ## Context for Next Session
-- Feature voting UI is complete
-- Need to add admin management for features
-- Audit logging is working
+- Key context points
 
 ## Files Modified This Session
-- src/routes/features-fe/+page.svelte
-- src/routes/api-chirho/features-chirho/+server.ts
+- List of modified files
 ```
 
-### 17.2 Handoff Protocol
+### 18.3 Handoff Protocol
 
 At the end of each session:
 1. Update `CURRENT_SPRINT_CHIRHO.md` with current state
 2. List any blocking issues
 3. Note which files were modified
-4. Commit the sprint file
+4. Commit if appropriate
 
 ---
 
-## 18. New Project Checklist
+## 19. New Project Checklist
 
 ```yaml
 new_project_checklist_chirho:
@@ -1078,7 +1043,7 @@ new_project_checklist_chirho:
 
 ---
 
-## 19. Scripture Foundation
+## 20. Scripture Foundation
 
 > *"Defend the weak and the fatherless; uphold the cause of the poor and the oppressed."* — Psalm 82:3
 
@@ -1089,6 +1054,8 @@ new_project_checklist_chirho:
 > *"A father to the fatherless, a defender of widows, is God in his holy dwelling."* — Psalm 68:5
 
 > *"I will not leave you as orphans; I will come to you."* — John 14:18 (Jesus speaking)
+
+> *"Whatever you do, work at it with all your heart, as working for the Lord."* — Colossians 3:23
 
 ---
 
@@ -1108,6 +1075,7 @@ new_project_checklist_chirho:
 | All Scripts | Use `-chirho` suffix |
 | All Identifiers | Use `Chirho` / `_chirho` suffix |
 | Divine Header | John 3:16 in every file |
+| OAuth Callback | `https://openorphanage.org/api-chirho/auth-chirho/oauth-chirho/google-chirho/callback-chirho` |
 
 ---
 

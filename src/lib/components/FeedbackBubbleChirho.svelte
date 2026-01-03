@@ -187,8 +187,8 @@
 
 					<!-- Feedback Type -->
 					<div>
-						<label class="block text-sm text-slate-400 mb-2">Type</label>
-						<div class="grid grid-cols-4 gap-2">
+						<span id="feedback-type-label-chirho" class="block text-sm text-slate-400 mb-2">Type</span>
+						<div class="grid grid-cols-4 gap-2" role="group" aria-labelledby="feedback-type-label-chirho">
 							{#each feedbackTypesChirho as ftChirho}
 								<button
 									type="button"

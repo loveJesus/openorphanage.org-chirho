@@ -195,15 +195,22 @@
 						<label for="category" class="block text-sm font-medium text-slate-300 mb-2">
 							Category
 						</label>
-						<select
-							id="category"
-							bind:value={newFeatureChirho.categoryChirho}
-							class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-none"
-						>
-							{#each categoriesChirho as catChirho}
-								<option value={catChirho.value}>{catChirho.label}</option>
-							{/each}
-						</select>
+						<div class="relative">
+							<select
+								id="category"
+								bind:value={newFeatureChirho.categoryChirho}
+								class="w-full appearance-none bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 pr-10 text-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500 focus:outline-none cursor-pointer"
+							>
+								{#each categoriesChirho as catChirho}
+									<option value={catChirho.value}>{catChirho.label}</option>
+								{/each}
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+								<svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+									<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+								</svg>
+							</div>
+						</div>
 					</div>
 
 					<div>

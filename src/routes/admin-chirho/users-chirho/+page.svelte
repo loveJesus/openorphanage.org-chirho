@@ -10,8 +10,16 @@
 	const roleCountsChirho = $derived(data.roleCountsChirho);
 	const orphanagesChirho = $derived(data.orphanagesChirho || []);
 
-	let searchInputChirho = $state(filtersChirho?.searchChirho || '');
-	let roleFilterChirho = $state(filtersChirho?.roleChirho || 'all');
+	let searchInputChirho = $state('');
+	let roleFilterChirho = $state('all');
+
+	// Sync initial values from server
+	$effect(() => {
+		if (filtersChirho) {
+			searchInputChirho = filtersChirho.searchChirho || '';
+			roleFilterChirho = filtersChirho.roleChirho || 'all';
+		}
+	});
 
 	function applyFiltersChirho() {
 		const paramsChirho = new URLSearchParams();

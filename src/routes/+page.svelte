@@ -160,7 +160,7 @@
 			<a href="/dashboard-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-8 py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">
 				Register Orphanage
 			</a>
-			<a href="https://kingdominvest.ing/campaigns-chirho?category=Compassion" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
+			<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
 				Support Orphanages
 			</a>
 		</div>
@@ -591,7 +591,7 @@
 		</div>
 
 		<div class="mt-12 text-center">
-			<a href="https://kingdominvest.ing/campaigns-chirho?category=Compassion" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 px-8 py-4 rounded-xl font-bold hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/25">
+			<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-slate-900 px-8 py-4 rounded-xl font-bold hover:from-amber-400 hover:to-orange-400 transition-all shadow-lg shadow-amber-500/25">
 				Support Orphanages on KingdomInvest.ing
 				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -627,7 +627,7 @@
 			<a href="/dashboard-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-8 py-3 rounded-lg font-bold hover:opacity-90 transition-opacity">
 				Register Orphanage
 			</a>
-			<a href="https://kingdominvest.ing" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
+			<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700">
 				Support on KingdomInvest.ing
 			</a>
 		</div>

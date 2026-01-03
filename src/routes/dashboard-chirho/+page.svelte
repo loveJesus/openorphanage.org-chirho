@@ -12,7 +12,14 @@
 
 	let editingProfileChirho = $state(false);
 	let changingPasswordChirho = $state(false);
-	let nameInputChirho = $state(userChirho?.nameChirho || '');
+	let nameInputChirho = $state('');
+
+	// Sync initial name from user data
+	$effect(() => {
+		if (userChirho?.nameChirho) {
+			nameInputChirho = userChirho.nameChirho;
+		}
+	});
 	let sendingVerificationChirho = $state(false);
 	let verificationMessageChirho = $state<{ typeChirho: 'success' | 'error'; textChirho: string } | null>(null);
 
@@ -413,7 +420,7 @@
 					<a href="/feedback-chirho" class="block w-full text-center py-2 px-4 rounded-lg bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors">
 						Submit Feedback
 					</a>
-					<a href="https://kingdominvest.ing" class="block w-full text-center py-2 px-4 rounded-lg bg-gradient-to-r from-rose-500 to-teal-500 text-white hover:opacity-90 transition-opacity" target="_blank" rel="noopener noreferrer">
+					<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="block w-full text-center py-2 px-4 rounded-lg bg-gradient-to-r from-rose-500 to-teal-500 text-white hover:opacity-90 transition-opacity" target="_blank" rel="noopener noreferrer">
 						Support an Orphanage
 					</a>
 				</div>

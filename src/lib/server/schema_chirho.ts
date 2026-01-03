@@ -8,12 +8,21 @@ import { relations } from 'drizzle-orm';
 export const usersChirho = sqliteTable('users_chirho', {
 	idChirho: integer('id_chirho').primaryKey({ autoIncrement: true }),
 	emailChirho: text('email_chirho').notNull().unique(),
-	passwordHashChirho: text('password_hash_chirho').notNull(),
+	passwordHashChirho: text('password_hash_chirho'), // Nullable for OAuth users
 	nameChirho: text('name_chirho'),
+	avatarUrlChirho: text('avatar_url_chirho'), // Profile picture from OAuth
 	roleChirho: text('role_chirho', {
 		enum: ['public', 'donor', 'staff', 'admin', 'super_admin']
 	}).notNull().default('public'),
 	orphanageIdChirho: integer('orphanage_id_chirho'),
+	// OAuth provider IDs (nullable, for future providers)
+	googleIdChirho: text('google_id_chirho').unique(),
+	githubIdChirho: text('github_id_chirho').unique(),
+	appleIdChirho: text('apple_id_chirho').unique(),
+	// Track primary auth method
+	authProviderChirho: text('auth_provider_chirho', {
+		enum: ['email', 'google', 'github', 'apple']
+	}).notNull().default('email'),
 	emailVerifiedChirho: integer('email_verified_chirho', { mode: 'boolean' }).notNull().default(false),
 	isActiveChirho: integer('is_active_chirho', { mode: 'boolean' }).notNull().default(true),
 	createdAtChirho: text('created_at_chirho').notNull().default(''),

@@ -8,6 +8,13 @@
       "when": 1767409013441,
       "tag": "0000_sloppy_stingray",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1767412313249,
+      "tag": "0001_windy_the_hand",
+      "breakpoints": true
     }
   ]
 }

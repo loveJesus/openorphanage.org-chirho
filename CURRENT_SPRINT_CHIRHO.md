@@ -30,6 +30,12 @@
 
 ## Recently Completed
 
+- [x] Updated AGENTS.md to v4.0 with FaithStack Master Gist content (2026-01-03)
+- [x] Added Google OAuth 2.0 authentication (2026-01-03)
+- [x] Database migration: OAuth columns (google_id, github_id, apple_id, auth_provider) (2026-01-03)
+- [x] Updated all support buttons to kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho (2026-01-03)
+- [x] Unified all select boxes with consistent styling (2026-01-03)
+- [x] Regenerated transparency images with higher quality (2026-01-03)
 - [x] Updated AGENTS.md to v3.0 with comprehensive suffixing rules (2026-01-02)
 - [x] Updated package.json scripts with -chirho suffix (2026-01-02)
 - [x] Replaced emoji panels with AI-generated imagery on homepage (2026-01-02)
@@ -46,31 +52,45 @@
 ## Context for Next Session
 
 ### Current State
+- Google OAuth fully functional with session-based auth via KV
+- OAuth route structure ready for GitHub/Apple OAuth expansion
 - Homepage uses AI-generated images instead of emoji panels
 - Feature voting system is fully functional at /features-fe
 - All legal pages are in place
 - Audit logging is working
-- Authentication system is functional
+- Support links point to KingdomInvest.ing campaign
 
 ### What Needs Attention
-- Support ticket system could use admin management UI
+- GitHub OAuth implementation (route structure ready)
+- Apple OAuth implementation (route structure ready)
+- Passkeys/WebAuthn (future enhancement)
+- TOTP 2FA (future enhancement)
+- Newsletter double opt-in system
+- Support ticket admin management UI
 - Consider adding Turnstile to feedback forms
 - May want to add more E2E tests for critical paths
 
 ### Key Files
 - `src/routes/+page.svelte` - Homepage with journey steps and features
 - `src/routes/features-fe/+page.svelte` - Feature voting UI
+- `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google implemented)
 - `src/lib/server/audit_chirho.ts` - Audit logging
 - `src/lib/server/schema_chirho.ts` - Database schema
+- `src/lib/server/kv_chirho.ts` - KV helper for sessions/OAuth state
+- `AGENTS.md` - Full project context (v4.0)
 
 ---
 
-## Files Modified This Session
+## Files Modified This Session (2026-01-03)
 
 ```
-AGENTS.md                          # Updated to v3.0
-CURRENT_SPRINT_CHIRHO.md           # Created this file
-package.json                       # Updated script names with -chirho
+AGENTS.md                          # Updated to v4.0 with FaithStack gist content
+CURRENT_SPRINT_CHIRHO.md           # Updated this file
+src/routes/+layout.svelte          # Support button URLs
+src/routes/+page.svelte            # Support button URLs
+src/routes/dashboard-chirho/+page.svelte           # Support button URL
+src/routes/orphanages-chirho/[id]/+page.svelte     # Support button URL
+src/routes/api-chirho/auth-chirho/oauth-chirho/google-chirho/callback-chirho/+server.ts  # Fixed KV import
 ```
 
 ---
@@ -89,11 +109,12 @@ bun run db-migrate-chirho   # Run migrations
 ## Notes for AI Handoff
 
 When resuming this project:
-1. Read `AGENTS.md` for full context and conventions
-2. Check this file for current state
-3. All identifiers use `Chirho` suffix
-4. All scripts use `-chirho` suffix
-5. Divine header (John 3:16) required in all files
+1. Read `AGENTS.md` for full context and conventions (v4.0)
+2. Reference FaithStack gist for detailed implementation patterns
+3. Check this file for current state
+4. All identifiers use `Chirho` suffix (including parameters, loop vars, lambdas)
+5. All scripts use `-chirho` suffix
+6. Divine header (John 3:16) required in all files
 
 ---
 

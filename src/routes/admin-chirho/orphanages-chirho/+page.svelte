@@ -9,10 +9,18 @@
 	const filtersChirho = $derived(data.filtersChirho);
 	const statusCountsChirho = $derived(data.statusCountsChirho);
 
-	let searchInputChirho = $state(filtersChirho.searchChirho);
-	let statusFilterChirho = $state(filtersChirho.statusChirho);
+	let searchInputChirho = $state('');
+	let statusFilterChirho = $state('all');
 	let rejectingIdChirho = $state<number | null>(null);
 	let rejectReasonChirho = $state('');
+
+	// Sync initial values from server
+	$effect(() => {
+		if (filtersChirho) {
+			searchInputChirho = filtersChirho.searchChirho || '';
+			statusFilterChirho = filtersChirho.statusChirho || 'all';
+		}
+	});
 
 	function applyFiltersChirho() {
 		const paramsChirho = new URLSearchParams();
@@ -309,10 +317,23 @@
 
 <!-- Reject Modal -->
 {#if rejectingIdChirho}
-	<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onclick={() => rejectingIdChirho = null}>
-		<div class="bg-slate-800 rounded-xl border border-slate-700 w-full max-w-md" onclick={(e) => e.stopPropagation()}>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+		onclick={() => rejectingIdChirho = null}
+		onkeydown={(eChirho) => eChirho.key === 'Escape' && (rejectingIdChirho = null)}
+	>
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<div
+			class="bg-slate-800 rounded-xl border border-slate-700 w-full max-w-md"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="reject-modal-title"
+			tabindex="-1"
+			onclick={(eChirho) => eChirho.stopPropagation()}
+		>
 			<div class="p-6">
-				<h2 class="text-xl font-bold mb-4">Reject Orphanage</h2>
+				<h2 id="reject-modal-title" class="text-xl font-bold mb-4">Reject Orphanage</h2>
 				<p class="text-slate-400 mb-4">Please provide a reason for rejection. This will be visible to the submitter.</p>
 				<form method="POST" action="?/reject" use:enhance={() => {
 					return async ({ result, update }) => {

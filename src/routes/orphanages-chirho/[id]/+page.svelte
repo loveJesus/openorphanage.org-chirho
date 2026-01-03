@@ -209,7 +209,7 @@
 					<h3 class="font-bold text-lg mb-4">Get Involved</h3>
 					<div class="space-y-3">
 						<a
-							href="https://kingdominvest.ing"
+							href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho"
 							class="flex items-center gap-3 w-full bg-gradient-to-r from-rose-500 to-teal-500 text-white py-3 px-4 rounded-lg font-bold hover:opacity-90 transition-opacity justify-center"
 						>
 							💝 Support This Orphanage

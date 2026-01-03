@@ -76,7 +76,7 @@
 			<div class="hidden md:flex items-center gap-6">
 				<a href="/orphanages-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Orphanages</a>
 				<a href="/feedback-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Feedback</a>
-				<a href="https://kingdominvest.ing" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1" target="_blank" rel="noopener noreferrer">
+				<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1" target="_blank" rel="noopener noreferrer">
 					Support
 					<span class="sr-only">(opens in new tab)</span>
 				</a>
@@ -143,7 +143,7 @@
 						Feedback
 					</a>
 					<a
-						href="https://kingdominvest.ing"
+						href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho"
 						class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
 						target="_blank"
 						rel="noopener noreferrer"
@@ -208,7 +208,7 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="bg-slate-900 border-t border-slate-800 py-12" role="contentinfo">
+	<footer class="bg-slate-900 border-t border-slate-800 py-12">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="grid md:grid-cols-4 gap-8">
 				<!-- Brand -->

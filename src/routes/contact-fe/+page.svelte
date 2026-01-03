@@ -76,15 +76,22 @@
 
 					<div>
 						<label for="subject-chirho" class="block text-sm font-medium mb-2">Subject</label>
-						<select
-							id="subject-chirho"
-							bind:value={subjectChirho}
-							class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-						>
-							{#each subjectsChirho as subChirho}
-								<option value={subChirho.valueChirho}>{subChirho.labelChirho}</option>
-							{/each}
-						</select>
+						<div class="relative">
+							<select
+								id="subject-chirho"
+								bind:value={subjectChirho}
+								class="w-full appearance-none bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent cursor-pointer"
+							>
+								{#each subjectsChirho as subChirho}
+									<option value={subChirho.valueChirho}>{subChirho.labelChirho}</option>
+								{/each}
+							</select>
+							<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+								<svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+									<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+								</svg>
+							</div>
+						</div>
 					</div>
 
 					<div>

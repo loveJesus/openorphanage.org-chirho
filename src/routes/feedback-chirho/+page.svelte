@@ -101,8 +101,8 @@
 			<form onsubmit={handleSubmitChirho} class="space-y-8">
 				<!-- Category Selection -->
 				<div>
-					<label class="block text-lg font-semibold mb-4">What type of feedback?</label>
-					<div class="grid sm:grid-cols-2 gap-4">
+					<span id="category-label-chirho" class="block text-lg font-semibold mb-4">What type of feedback?</span>
+					<div class="grid sm:grid-cols-2 gap-4" role="group" aria-labelledby="category-label-chirho">
 						{#each categoriesChirho as catChirho}
 							<button
 								type="button"
@@ -118,10 +118,10 @@
 
 				<!-- Rating (Optional) -->
 				<div>
-					<label class="block text-lg font-semibold mb-4">
+					<span id="rating-label-chirho" class="block text-lg font-semibold mb-4">
 						Overall Experience <span class="text-slate-500 font-normal text-sm">(optional)</span>
-					</label>
-					<div class="flex gap-2">
+					</span>
+					<div class="flex gap-2" role="group" aria-labelledby="rating-label-chirho">
 						{#each [1, 2, 3, 4, 5] as starChirho}
 							<button
 								type="button"

@@ -7,9 +7,18 @@
 	const paginationChirho = $derived(data.paginationChirho);
 	const filtersChirho = $derived(data.filtersChirho);
 
-	let searchInputChirho = $state(filtersChirho.searchChirho);
-	let countrySelectChirho = $state(filtersChirho.countryChirho);
-	let verifiedOnlyChirho = $state(filtersChirho.verifiedOnlyChirho);
+	let searchInputChirho = $state('');
+	let countrySelectChirho = $state('');
+	let verifiedOnlyChirho = $state(false);
+
+	// Sync initial values from server
+	$effect(() => {
+		if (filtersChirho) {
+			searchInputChirho = filtersChirho.searchChirho || '';
+			countrySelectChirho = filtersChirho.countryChirho || '';
+			verifiedOnlyChirho = filtersChirho.verifiedOnlyChirho || false;
+		}
+	});
 
 	function buildUrlChirho(paramsChirho: Record<string, string | boolean | number>) {
 		const urlChirho = new URL(window.location.href);
@@ -81,16 +90,23 @@
 
 				<div>
 					<label for="country-chirho" class="block text-sm font-medium mb-2 text-slate-300">Country</label>
-					<select
-						id="country-chirho"
-						bind:value={countrySelectChirho}
-						class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent"
-					>
-						<option value="">All Countries</option>
-						{#each countriesChirho as countryChirho}
-							<option value={countryChirho}>{countryChirho}</option>
-						{/each}
-					</select>
+					<div class="relative">
+						<select
+							id="country-chirho"
+							bind:value={countrySelectChirho}
+							class="w-full appearance-none bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 pr-10 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-transparent cursor-pointer"
+						>
+							<option value="">All Countries</option>
+							{#each countriesChirho as countryChirho}
+								<option value={countryChirho}>{countryChirho}</option>
+							{/each}
+						</select>
+						<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+							<svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
+								<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+							</svg>
+						</div>
+					</div>
 				</div>
 
 				<div class="flex flex-col justify-end">

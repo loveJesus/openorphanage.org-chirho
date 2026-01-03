@@ -9,8 +9,16 @@
 	const filtersChirho = $derived(data.filtersChirho);
 	const statusCountsChirho = $derived(data.statusCountsChirho);
 
-	let searchInputChirho = $state(filtersChirho?.searchChirho || '');
-	let statusFilterChirho = $state(filtersChirho?.statusChirho || 'all');
+	let searchInputChirho = $state('');
+	let statusFilterChirho = $state('all');
+
+	// Sync initial values from server
+	$effect(() => {
+		if (filtersChirho) {
+			searchInputChirho = filtersChirho.searchChirho || '';
+			statusFilterChirho = filtersChirho.statusChirho || 'all';
+		}
+	});
 
 	const categoriesChirho = ['food', 'medical', 'education', 'clothing', 'infrastructure', 'staff', 'utilities', 'transportation', 'other'];
 	const prioritiesChirho = ['low', 'medium', 'high', 'urgent'];
