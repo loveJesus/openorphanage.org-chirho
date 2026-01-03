@@ -19,7 +19,6 @@
 ## Active Tasks
 
 - [ ] Apple OAuth implementation
-- [ ] Support ticket admin management UI
 
 ---
 
@@ -31,6 +30,7 @@
 
 ## Recently Completed
 
+- [x] Created support ticket admin management UI (2026-01-03)
 - [x] Added Turnstile widgets to frontend forms (newsletter, support, feedback) (2026-01-03)
 - [x] Added Turnstile verification to public form endpoints (2026-01-03)
 - [x] Implemented GitHub OAuth authentication (2026-01-03)
@@ -62,6 +62,7 @@
 - Google OAuth + GitHub OAuth fully functional with session-based auth via KV
 - Turnstile protection on all public forms (newsletter, support tickets, feedback)
 - Rate limiting on all sensitive endpoints
+- Support ticket admin management UI at /admin-chirho/support-chirho
 - Homepage uses AI-generated images instead of emoji panels
 - Feature voting system is fully functional at /features-fe
 - All legal pages are in place
@@ -72,12 +73,12 @@
 - Apple OAuth implementation (route structure ready)
 - Passkeys/WebAuthn (future enhancement)
 - TOTP 2FA (future enhancement)
-- Support ticket admin management UI
 - May want to add more E2E tests for critical paths
 
 ### Key Files
 - `src/routes/+page.svelte` - Homepage with journey steps and features
 - `src/routes/features-fe/+page.svelte` - Feature voting UI
+- `src/routes/admin-chirho/support-chirho/` - Support ticket management UI
 - `src/routes/api-chirho/auth-chirho/oauth-chirho/` - OAuth routes (Google + GitHub implemented)
 - `src/lib/server/turnstile_chirho.ts` - Turnstile verification utility
 - `src/lib/server/security_chirho.ts` - Rate limiting and security utilities
@@ -91,20 +92,26 @@
 ## Files Modified This Session (2026-01-03)
 
 ```
-AGENTS.md                                          # Updated to v4.0 with FaithStack gist content
-CURRENT_SPRINT_CHIRHO.md                           # Updated this file
-src/routes/+layout.svelte                          # Turnstile script + newsletter form with Turnstile
+# Support Ticket Admin UI (new)
+src/routes/admin-chirho/support-chirho/+page.server.ts   # List page server
+src/routes/admin-chirho/support-chirho/+page.svelte      # List page UI
+src/routes/admin-chirho/support-chirho/[id]/+page.server.ts  # Detail page server
+src/routes/admin-chirho/support-chirho/[id]/+page.svelte     # Detail page UI
+src/routes/admin-chirho/+layout.svelte                   # Added Support nav item
+
+# Turnstile & Security
+src/routes/+layout.svelte                          # Turnstile script + newsletter form
 src/routes/support-fe/+page.svelte                 # Turnstile widget for non-authenticated users
 src/routes/feedback-chirho/+page.svelte            # Turnstile widget for non-authenticated users
-src/lib/server/turnstile_chirho.ts                 # Shared Turnstile verification utility (new)
-src/lib/server/security_chirho.ts                  # Added rate limit configs
-src/routes/api-chirho/newsletter-chirho/subscribe-chirho/+server.ts  # Rate limiting + Turnstile
-src/routes/api-chirho/support-chirho/+server.ts    # Rate limiting + Turnstile
-src/routes/api-chirho/feedback-chirho/+server.ts   # Turnstile verification
-src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/+server.ts  # GitHub OAuth initiation
-src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/callback-chirho/+server.ts  # GitHub OAuth callback
-src/routes/auth-chirho/login-chirho/+page.svelte   # GitHub login button
-src/routes/auth-chirho/register-chirho/+page.svelte  # GitHub OAuth button
+src/lib/server/turnstile_chirho.ts                 # Shared Turnstile verification utility
+
+# OAuth & API
+src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/+server.ts
+src/routes/api-chirho/auth-chirho/oauth-chirho/github-chirho/callback-chirho/+server.ts
+
+# Documentation
+AGENTS.md                                          # Updated to v4.0
+CURRENT_SPRINT_CHIRHO.md
 ```
 
 ---

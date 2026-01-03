@@ -10,6 +10,7 @@
 		{ hrefChirho: '/admin-chirho', labelChirho: 'Dashboard', iconChirho: '📊' },
 		{ hrefChirho: '/admin-chirho/orphanages-chirho', labelChirho: 'Orphanages', iconChirho: '🏠' },
 		{ hrefChirho: '/admin-chirho/needs-chirho', labelChirho: 'Needs', iconChirho: '📋' },
+		{ hrefChirho: '/admin-chirho/support-chirho', labelChirho: 'Support', iconChirho: '🎫' },
 		{ hrefChirho: '/admin-chirho/feedback-chirho', labelChirho: 'Feedback', iconChirho: '💬' },
 		{ hrefChirho: '/admin-chirho/users-chirho', labelChirho: 'Users', iconChirho: '👥' }
 	];
