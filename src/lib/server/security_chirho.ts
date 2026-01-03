@@ -10,9 +10,14 @@ export const RATE_LIMITS_CHIRHO = {
 	'auth/login': { limitChirho: 5, windowSecondsChirho: 60 }, // 5 per minute
 	'auth/register': { limitChirho: 3, windowSecondsChirho: 3600 }, // 3 per hour
 	'auth/password-reset': { limitChirho: 3, windowSecondsChirho: 3600 }, // 3 per hour
+	'auth/oauth': { limitChirho: 10, windowSecondsChirho: 60 }, // 10 per minute
 
-	// Feedback
+	// Feedback & Support
 	'feedback/submit': { limitChirho: 10, windowSecondsChirho: 3600 }, // 10 per hour
+	'support/ticket': { limitChirho: 3, windowSecondsChirho: 300 }, // 3 per 5 min
+
+	// Newsletter
+	'newsletter/subscribe': { limitChirho: 3, windowSecondsChirho: 60 }, // 3 per minute
 
 	// API general
 	'api/general': { limitChirho: 100, windowSecondsChirho: 60 }, // 100 per minute

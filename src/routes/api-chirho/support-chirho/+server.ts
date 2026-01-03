@@ -2,14 +2,33 @@
 import { json, error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getDbChirho } from '$lib/server/db_chirho';
+import { getKvChirho } from '$lib/server/kv_chirho';
 import { supportTicketsChirho } from '$lib/server/schema_chirho';
-import { logAuditChirho, AUDIT_ACTIONS_CHIRHO, getClientIpChirho, getUserAgentChirho } from '$lib/server/audit_chirho';
+import { logAuditChirho, AUDIT_ACTIONS_CHIRHO, getClientIpChirho as getClientIpAuditChirho, getUserAgentChirho } from '$lib/server/audit_chirho';
+import { checkRateLimitChirho, createRateLimitHeadersChirho, getClientIpChirho } from '$lib/server/security_chirho';
 import { desc, eq } from 'drizzle-orm';
 
 /**
  * Create a new support ticket
  */
 export const POST: RequestHandler = async ({ request, locals, platform }) => {
+	if (!platform?.env) {
+		throw error(500, 'Platform not available');
+	}
+
+	const kvChirho = getKvChirho(platform);
+
+	// Rate limiting
+	const ipChirho = getClientIpChirho(request);
+	const rateLimitChirho = await checkRateLimitChirho(kvChirho, ipChirho, 'support/ticket');
+
+	if (!rateLimitChirho.allowedChirho) {
+		return json(
+			{ successChirho: false, errorChirho: 'Too many requests. Please try again later.' },
+			{ status: 429, headers: createRateLimitHeadersChirho(rateLimitChirho) }
+		);
+	}
+
 	const dbChirho = getDbChirho(platform);
 	const sessionChirho = locals.sessionChirho;
 
@@ -54,7 +73,7 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 			entityTypeChirho: 'support_ticket',
 			entityIdChirho: resultChirho[0]?.idChirho,
 			detailsChirho: { categoryChirho, subjectChirho },
-			ipAddressChirho: getClientIpChirho(request),
+			ipAddressChirho: getClientIpAuditChirho(request),
 			userAgentChirho: getUserAgentChirho(request)
 		});
 

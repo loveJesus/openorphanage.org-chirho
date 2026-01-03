@@ -2,9 +2,11 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { getDbChirho } from '$lib/server/db_chirho';
+import { getKvChirho } from '$lib/server/kv_chirho';
 import { newsletterSubscribersChirho } from '$lib/server/schema_chirho';
 import { eq } from 'drizzle-orm';
 import { sendEmailChirho, createNewsletterConfirmEmailChirho } from '$lib/server/email_chirho';
+import { checkRateLimitChirho, createRateLimitHeadersChirho, getClientIpChirho } from '$lib/server/security_chirho';
 
 // Generate secure random token
 function generateTokenChirho(): string {
@@ -15,6 +17,23 @@ function generateTokenChirho(): string {
 
 export const POST: RequestHandler = async ({ request, platform }) => {
 	try {
+		if (!platform?.env) {
+			return json({ successChirho: false, errorChirho: 'Platform not available' }, { status: 500 });
+		}
+
+		const kvChirho = getKvChirho(platform);
+
+		// Rate limiting
+		const ipChirho = getClientIpChirho(request);
+		const rateLimitChirho = await checkRateLimitChirho(kvChirho, ipChirho, 'newsletter/subscribe');
+
+		if (!rateLimitChirho.allowedChirho) {
+			return json(
+				{ successChirho: false, errorChirho: 'Too many requests. Please try again later.' },
+				{ status: 429, headers: createRateLimitHeadersChirho(rateLimitChirho) }
+			);
+		}
+
 		const bodyChirho = await request.json();
 		const { emailChirho, nameChirho, sourceChirho } = bodyChirho;
 
