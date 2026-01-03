@@ -36,7 +36,7 @@
 			descChirho: 'Orphanages administer care transparently, tracking needs and reporting to donors in real-time.',
 			urlChirho: 'https://openorphanage.org',
 			colorChirho: 'from-rose-500 to-pink-600',
-			iconChirho: '🏠',
+			imageChirho: '/journey-openorphanage-chirho.png',
 			currentChirho: true
 		},
 		{
@@ -46,7 +46,7 @@
 			descChirho: 'Children receive sponsors who provide support, prayer, and connection through age-appropriate discipleship.',
 			urlChirho: 'https://makingfriends.faith',
 			colorChirho: 'from-purple-500 to-violet-600',
-			iconChirho: '👶'
+			imageChirho: '/journey-makingfriends-chirho.png'
 		},
 		{
 			numberChirho: '3',
@@ -55,7 +55,7 @@
 			descChirho: 'As children mature, they learn valuable technology skills through Christ-centered coding education.',
 			urlChirho: 'https://sonshinecoders.org',
 			colorChirho: 'from-amber-500 to-orange-600',
-			iconChirho: '🎓'
+			imageChirho: '/journey-sonshinecoders-chirho.png'
 		},
 		{
 			numberChirho: '4',
@@ -64,7 +64,7 @@
 			descChirho: 'Graduates find meaningful work through the faith-forward AI integrator marketplace.',
 			urlChirho: 'https://koinainia.com',
 			colorChirho: 'from-green-500 to-emerald-600',
-			iconChirho: '💼'
+			imageChirho: '/journey-koinainia-chirho.png'
 		},
 		{
 			numberChirho: '5',
@@ -73,38 +73,38 @@
 			descChirho: 'Professional tools help them build businesses and serve clients with excellence.',
 			urlChirho: 'https://perffection.com',
 			colorChirho: 'from-blue-500 to-cyan-600',
-			iconChirho: '🚀'
+			imageChirho: '/journey-perffection-chirho.png'
 		}
 	];
 
 	const featuresChirho = [
 		{
-			iconChirho: '👁️',
+			imageChirho: '/feature-transparency-chirho.png',
 			titleChirho: 'Radical Transparency',
 			descChirho: 'Every donation tracked. Every need visible. Every outcome reported. Donors see exactly where funds go.'
 		},
 		{
-			iconChirho: '📊',
+			imageChirho: '/feature-dashboard-chirho.png',
 			titleChirho: 'Real-Time Dashboard',
 			descChirho: 'Orphanage administrators manage children, resources, and staff with comprehensive digital tools.'
 		},
 		{
-			iconChirho: '🤝',
+			imageChirho: '/feature-ecosystem-chirho.png',
 			titleChirho: 'Integrated Ecosystem',
 			descChirho: 'Seamlessly connects with KingdomInvest.ing for donations and MakingFriends.faith for sponsorships.'
 		},
 		{
-			iconChirho: '🔒',
+			imageChirho: '/feature-protection-chirho.png',
 			titleChirho: 'Child Protection',
 			descChirho: 'Privacy-first design protects children while enabling meaningful sponsor connections.'
 		},
 		{
-			iconChirho: '📈',
+			imageChirho: '/feature-tracking-chirho.png',
 			titleChirho: 'Outcome Tracking',
 			descChirho: 'Follow each child\'s journey from care through education to employment and independence.'
 		},
 		{
-			iconChirho: '✅',
+			imageChirho: '/feature-verified-chirho.png',
 			titleChirho: 'Verified Orphanages',
 			descChirho: 'FaithStack Trust Network verification ensures legitimacy and accountability.'
 		}
@@ -133,11 +133,11 @@
 		<!-- Logo -->
 		<div class="mb-8 flex justify-center">
 			<div class="relative">
-				<div class="w-24 h-24 bg-gradient-to-br from-rose-500 to-teal-500 rounded-2xl flex items-center justify-center shadow-2xl glow-rose">
-					<span class="text-5xl">🏠</span>
+				<div class="w-28 h-28 rounded-2xl overflow-hidden shadow-2xl glow-rose ring-2 ring-rose-500/30">
+					<img src="/logo-icon-chirho.png" alt="OpenOrphanage" class="w-full h-full object-cover" />
 				</div>
-				<div class="absolute -top-2 -right-2 w-6 h-6 bg-amber-500 rounded-full animate-pulse flex items-center justify-center">
-					<span class="text-white text-xs">✝</span>
+				<div class="absolute -top-2 -right-2 w-7 h-7 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full animate-pulse flex items-center justify-center shadow-lg">
+					<span class="text-white text-sm font-bold">✝</span>
 				</div>
 			</div>
 		</div>
@@ -223,22 +223,32 @@
 				{#each journeyStepsChirho as step}
 					<a
 						href={step.urlChirho}
-						class="relative bg-slate-800/50 rounded-2xl p-6 border transition-all card-hover {step.currentChirho ? 'border-rose-500 glow-rose' : 'border-slate-700 hover:border-slate-600'}"
+						class="group relative bg-slate-800/50 rounded-2xl overflow-hidden border transition-all card-hover {step.currentChirho ? 'border-rose-500 glow-rose' : 'border-slate-700 hover:border-slate-600'}"
 					>
-						<!-- Step number -->
-						<div class="absolute -top-4 left-6 w-8 h-8 bg-gradient-to-br {step.colorChirho} rounded-full flex items-center justify-center text-white font-bold text-sm">
+						<!-- Step number badge -->
+						<div class="absolute top-3 left-3 z-10 w-8 h-8 bg-gradient-to-br {step.colorChirho} rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg">
 							{step.numberChirho}
 						</div>
 
-						<div class="pt-4">
-							<div class="text-3xl mb-3">{step.iconChirho}</div>
-							<h3 class="font-bold text-lg mb-1">{step.titleChirho}</h3>
+						<!-- AI-generated icon image -->
+						<div class="relative h-32 overflow-hidden">
+							<img
+								src={step.imageChirho}
+								alt=""
+								class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"
+								aria-hidden="true"
+							/>
+							<div class="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/50 to-transparent"></div>
+						</div>
+
+						<div class="p-5 -mt-8 relative z-10">
+							<h3 class="font-bold text-lg mb-1 group-hover:text-rose-400 transition-colors">{step.titleChirho}</h3>
 							<p class="text-sm text-slate-400 mb-2">{step.subtitleChirho}</p>
-							<p class="text-xs text-slate-500">{step.descChirho}</p>
+							<p class="text-xs text-slate-500 line-clamp-2">{step.descChirho}</p>
 
 							{#if step.currentChirho}
-								<div class="mt-4">
-									<span class="text-xs bg-rose-500/20 text-rose-400 px-2 py-1 rounded">You are here</span>
+								<div class="mt-3">
+									<span class="text-xs bg-rose-500/20 text-rose-400 px-2 py-1 rounded-full border border-rose-500/30">You are here</span>
 								</div>
 							{/if}
 						</div>
@@ -363,10 +373,21 @@
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 			{#each featuresChirho as feature}
-				<div class="bg-slate-800/50 rounded-xl p-6 border border-slate-700 hover:border-rose-500/50 transition-colors card-hover">
-					<div class="text-3xl mb-4">{feature.iconChirho}</div>
-					<h3 class="font-semibold text-lg mb-2">{feature.titleChirho}</h3>
-					<p class="text-slate-400 text-sm">{feature.descChirho}</p>
+				<div class="group bg-slate-800/50 rounded-2xl overflow-hidden border border-slate-700 hover:border-rose-500/50 transition-all card-hover">
+					<!-- AI-generated feature image -->
+					<div class="relative h-40 overflow-hidden">
+						<img
+							src={feature.imageChirho}
+							alt=""
+							class="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+							aria-hidden="true"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-slate-800 via-slate-800/30 to-transparent"></div>
+					</div>
+					<div class="p-6 -mt-6 relative z-10">
+						<h3 class="font-semibold text-lg mb-2 group-hover:text-rose-400 transition-colors">{feature.titleChirho}</h3>
+						<p class="text-slate-400 text-sm">{feature.descChirho}</p>
+					</div>
 				</div>
 			{/each}
 		</div>
