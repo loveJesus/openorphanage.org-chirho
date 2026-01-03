@@ -378,9 +378,51 @@ feedback_bubble_chirho:
 
 ---
 
-## 8. Image Format Guidelines
+## 8. Image & UI Design Guidelines
 
-### 8.1 Convert to JPG
+### 8.1 AVOID Overused Design Patterns
+
+```yaml
+avoid_these_patterns_chirho:
+  emoji_panels:
+    description: "Left-aligned emoji followed by text in card/panel layout"
+    example: "🏠 Browse Orphanages | 💰 Make a Donation | 📊 Track Impact"
+    problem: "Overused, generic, looks like every other AI-generated site"
+
+  what_to_do_instead:
+    - Use MCP image generation tools (Imagen) to create unique visuals
+    - Create custom illustrations or AI-generated artwork
+    - Use CSS gradients, glassmorphism, or creative backgrounds
+    - Design panels with actual imagery, not emoji placeholders
+    - Make it look like humans designed it with intention
+```
+
+### 8.2 Be Original — Use AI Image Generation
+
+```yaml
+design_approach_chirho:
+  for_feature_panels:
+    wrong: "Grid of cards with emoji + heading + description"
+    right: "AI-generated background images with overlay text, or unique illustrations"
+
+  tools_available:
+    - mcp__imagen__imagen_t2i  # Generate images from text prompts
+    - mcp__imagen__imagen_edit_inpainting_insert  # Edit existing images
+
+  css_techniques:
+    - Background images with gradient overlays
+    - Glassmorphism (backdrop-blur)
+    - Creative clip-paths and shapes
+    - Animated gradients
+    - Custom SVG patterns
+
+  philosophy: |
+    Our platform serves orphans and orphanages — it deserves thoughtful,
+    original design that reflects the gravity and hope of our mission.
+    Don't settle for generic emoji grids. Create something meaningful.
+```
+
+### 8.3 Image Format Standards
 
 ```yaml
 image_guidelines_chirho:
