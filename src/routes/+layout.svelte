@@ -249,15 +249,67 @@
 					</ul>
 				</div>
 
-				<!-- Scripture -->
+				<!-- Newsletter -->
 				<div>
-					<h2 class="font-semibold mb-4 text-amber-400">Our Foundation</h2>
-					<blockquote class="text-slate-400 text-sm italic">
-						<p>"Religion that is pure and undefiled before God the Father is this: to visit orphans and widows in their affliction."</p>
-						<footer class="mt-2 text-amber-400 not-italic">
-							<cite>— James 1:27</cite>
-						</footer>
-					</blockquote>
+					<h2 class="font-semibold mb-4 text-amber-400">Stay Updated</h2>
+					<p class="text-slate-400 text-sm mb-4">Get occasional updates on orphanage stories and how you can help.</p>
+					<form
+						id="footer-newsletter-form"
+						class="space-y-2"
+						onsubmit={(eChirho) => {
+							eChirho.preventDefault();
+							const formChirho = eChirho.currentTarget as HTMLFormElement;
+							const emailChirho = (formChirho.querySelector('input[type=email]') as HTMLInputElement).value;
+							const submitBtnChirho = formChirho.querySelector('button[type=submit]') as HTMLButtonElement;
+							const messageChirho = formChirho.querySelector('.newsletter-message-chirho') as HTMLElement;
+
+							submitBtnChirho.disabled = true;
+							submitBtnChirho.textContent = 'Subscribing...';
+
+							fetch('/api-chirho/newsletter-chirho/subscribe-chirho', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({ emailChirho, sourceChirho: 'footer' })
+							})
+								.then(rChirho => rChirho.json())
+								.then(dataChirho => {
+									if (dataChirho.successChirho) {
+										messageChirho.textContent = dataChirho.messageChirho;
+										messageChirho.className = 'newsletter-message-chirho text-xs text-teal-400 mt-2';
+										formChirho.reset();
+									} else {
+										messageChirho.textContent = dataChirho.errorChirho || 'An error occurred';
+										messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+									}
+								})
+								.catch(() => {
+									messageChirho.textContent = 'An error occurred. Please try again.';
+									messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+								})
+								.finally(() => {
+									submitBtnChirho.disabled = false;
+									submitBtnChirho.textContent = 'Subscribe';
+								});
+						}}
+					>
+						<div class="flex gap-2">
+							<label for="footer-newsletter-email" class="sr-only">Email address</label>
+							<input
+								type="email"
+								id="footer-newsletter-email"
+								placeholder="your@email.com"
+								required
+								class="flex-grow bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+							/>
+							<button
+								type="submit"
+								class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+							>
+								Subscribe
+							</button>
+						</div>
+						<p class="newsletter-message-chirho text-xs text-slate-500 mt-2">No spam, unsubscribe anytime.</p>
+					</form>
 				</div>
 			</div>
 

@@ -214,6 +214,108 @@ JESUS CHRIST IS LORD
 	};
 }
 
+/**
+ * Newsletter subscription confirmation email (double opt-in)
+ */
+export function createNewsletterConfirmEmailChirho(
+	confirmUrlChirho: string,
+	nameChirho?: string
+): { subjectChirho: string; htmlChirho: string; textChirho: string } {
+	const greetingChirho = nameChirho ? `Hello ${nameChirho},` : 'Hello,';
+	return {
+		subjectChirho: 'Confirm your newsletter subscription — OpenOrphanage',
+		htmlChirho: `
+			<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+				<h1 style="color: #f43f5e;">Confirm Your Subscription</h1>
+				<p>${greetingChirho}</p>
+				<p>Thank you for subscribing to the OpenOrphanage newsletter! Please confirm your subscription by clicking the button below:</p>
+				<p style="text-align: center; margin: 32px 0;">
+					<a href="${confirmUrlChirho}" style="background: linear-gradient(to right, #f43f5e, #14b8a6); color: white; padding: 14px 32px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold;">Confirm Subscription</a>
+				</p>
+				<p style="color: #6b7280; font-size: 14px;">This link will expire in 24 hours. If you didn't request this subscription, you can safely ignore this email.</p>
+				<p>You'll receive occasional updates about:</p>
+				<ul>
+					<li>Orphanage stories and impact reports</li>
+					<li>Urgent needs and how you can help</li>
+					<li>Platform updates and new features</li>
+				</ul>
+				${EMAIL_FOOTER_CHIRHO}
+			</div>
+		`,
+		textChirho: `
+${greetingChirho}
+
+Thank you for subscribing to the OpenOrphanage newsletter! Please confirm your subscription by visiting:
+
+${confirmUrlChirho}
+
+This link will expire in 24 hours. If you didn't request this subscription, you can safely ignore this email.
+
+You'll receive occasional updates about:
+- Orphanage stories and impact reports
+- Urgent needs and how you can help
+- Platform updates and new features
+
+---
+OpenOrphanage.org — Transparent Global Orphan Care
+JESUS CHRIST IS LORD
+		`
+	};
+}
+
+/**
+ * Newsletter subscription confirmed email
+ */
+export function createNewsletterWelcomeEmailChirho(
+	unsubscribeUrlChirho: string,
+	nameChirho?: string
+): { subjectChirho: string; htmlChirho: string; textChirho: string } {
+	const greetingChirho = nameChirho ? `Welcome ${nameChirho}!` : 'Welcome!';
+	return {
+		subjectChirho: 'Welcome to the OpenOrphanage Newsletter!',
+		htmlChirho: `
+			<div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+				<h1 style="color: #14b8a6;">${greetingChirho}</h1>
+				<p>Your subscription to the OpenOrphanage newsletter has been confirmed.</p>
+				<p>You're now part of a community dedicated to transparent, loving care for orphans around the world.</p>
+				<div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; margin: 24px 0;">
+					<h3 style="margin-top: 0; color: #f43f5e;">What to Expect</h3>
+					<ul style="margin-bottom: 0;">
+						<li>Monthly updates on orphanage needs and impact</li>
+						<li>Stories of hope and transformation</li>
+						<li>Opportunities to make a difference</li>
+					</ul>
+				</div>
+				<p><a href="https://openorphanage.org/orphanages-chirho" style="background: linear-gradient(to right, #f43f5e, #14b8a6); color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">Explore Orphanages</a></p>
+				${EMAIL_FOOTER_CHIRHO}
+				<p style="color: #9ca3af; font-size: 11px;">
+					<a href="${unsubscribeUrlChirho}" style="color: #9ca3af;">Unsubscribe</a>
+				</p>
+			</div>
+		`,
+		textChirho: `
+${greetingChirho}
+
+Your subscription to the OpenOrphanage newsletter has been confirmed.
+
+You're now part of a community dedicated to transparent, loving care for orphans around the world.
+
+What to Expect:
+- Monthly updates on orphanage needs and impact
+- Stories of hope and transformation
+- Opportunities to make a difference
+
+Explore orphanages: https://openorphanage.org/orphanages-chirho
+
+---
+OpenOrphanage.org — Transparent Global Orphan Care
+JESUS CHRIST IS LORD
+
+Unsubscribe: ${unsubscribeUrlChirho}
+		`
+	};
+}
+
 // =============================================================================
 // MAILU API INTEGRATION (for mailbox management)
 // =============================================================================

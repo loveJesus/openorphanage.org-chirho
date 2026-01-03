@@ -243,6 +243,29 @@ export const featureVotesChirho = sqliteTable('feature_votes_chirho', {
 });
 
 // =============================================================================
+// NEWSLETTER SUBSCRIBERS - Double opt-in newsletter system
+// =============================================================================
+export const newsletterSubscribersChirho = sqliteTable('newsletter_subscribers_chirho', {
+	idChirho: integer('id_chirho').primaryKey({ autoIncrement: true }),
+	emailChirho: text('email_chirho').notNull().unique(),
+	nameChirho: text('name_chirho'),
+	// Double opt-in status
+	statusChirho: text('status_chirho', {
+		enum: ['pending', 'confirmed', 'unsubscribed']
+	}).notNull().default('pending'),
+	// Confirmation token for double opt-in
+	confirmTokenChirho: text('confirm_token_chirho'),
+	confirmTokenExpiresChirho: text('confirm_token_expires_chirho'),
+	// Unsubscribe token (never expires)
+	unsubscribeTokenChirho: text('unsubscribe_token_chirho'),
+	// Tracking
+	confirmedAtChirho: text('confirmed_at_chirho'),
+	unsubscribedAtChirho: text('unsubscribed_at_chirho'),
+	subscribedFromChirho: text('subscribed_from_chirho'), // e.g., 'footer', 'homepage', 'orphanage_page'
+	createdAtChirho: text('created_at_chirho').notNull().default('')
+});
+
+// =============================================================================
 // RELATIONS
 // =============================================================================
 export const usersRelationsChirho = relations(usersChirho, ({ one, many }) => ({
