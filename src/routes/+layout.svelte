@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '../app.css';
 	import FeedbackBubbleChirho from '$lib/components/FeedbackBubbleChirho.svelte';
+	import CookieConsentChirho from '$lib/components/CookieConsentChirho.svelte';
 
 	let { children, data } = $props();
 
@@ -22,6 +23,29 @@
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#0f172a" />
+	<meta name="author" content="FaithStack" />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://openorphanage.org/" />
+	<meta property="og:title" content="OpenOrphanage - Transparent Orphan Care" />
+	<meta property="og:description" content="Discover verified orphanages, track donations transparently, and support children in need. Part of FaithStack." />
+	<meta property="og:image" content="https://openorphanage.org/og-image-chirho.png" />
+	<meta property="og:site_name" content="OpenOrphanage" />
+	<meta property="og:locale" content="en_US" />
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:url" content="https://openorphanage.org/" />
+	<meta name="twitter:title" content="OpenOrphanage - Transparent Orphan Care" />
+	<meta name="twitter:description" content="Discover verified orphanages, track donations transparently, and support children in need." />
+	<meta name="twitter:image" content="https://openorphanage.org/og-image-chirho.png" />
+
+	<!-- Additional SEO -->
+	<meta name="robots" content="index, follow" />
+	<link rel="canonical" href="https://openorphanage.org/" />
+
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -214,12 +238,14 @@
 
 				<!-- Legal -->
 				<div>
-					<h2 class="font-semibold mb-4 text-teal-400">Legal</h2>
+					<h2 class="font-semibold mb-4 text-teal-400">Legal & Support</h2>
 					<ul class="space-y-2 text-sm text-slate-400" aria-label="Legal and support links">
 						<li><a href="/privacy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Privacy Policy</a></li>
 						<li><a href="/terms-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Terms of Service</a></li>
+						<li><a href="/cookie-policy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Cookie Policy</a></li>
+						<li><a href="/refund-policy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Refund Policy</a></li>
+						<li><a href="/accessibility-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Accessibility</a></li>
 						<li><a href="/contact-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Contact Us</a></li>
-						<li><a href="/feedback-chirho" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Give Feedback</a></li>
 					</ul>
 				</div>
 
@@ -268,6 +294,9 @@
 	{#if turnstileSiteKeyChirho}
 		<FeedbackBubbleChirho {userChirho} {turnstileSiteKeyChirho} />
 	{/if}
+
+	<!-- Cookie Consent Banner -->
+	<CookieConsentChirho />
 </div>
 
 <style>

@@ -176,6 +176,64 @@ export const auditLogChirho = sqliteTable('audit_log_chirho', {
 });
 
 // =============================================================================
+// SUPPORT TICKETS - User support requests
+// =============================================================================
+export const supportTicketsChirho = sqliteTable('support_tickets_chirho', {
+	idChirho: integer('id_chirho').primaryKey({ autoIncrement: true }),
+	userIdChirho: integer('user_id_chirho'),
+	emailChirho: text('email_chirho').notNull(),
+	nameChirho: text('name_chirho'),
+	subjectChirho: text('subject_chirho').notNull(),
+	categoryChirho: text('category_chirho', {
+		enum: ['general', 'donation', 'technical', 'orphanage', 'safety', 'gdpr', 'other']
+	}).notNull().default('general'),
+	priorityChirho: text('priority_chirho', {
+		enum: ['low', 'normal', 'high', 'urgent']
+	}).notNull().default('normal'),
+	statusChirho: text('status_chirho', {
+		enum: ['open', 'in_progress', 'waiting_response', 'resolved', 'closed']
+	}).notNull().default('open'),
+	contentPreviewChirho: text('content_preview_chirho'),
+	contentKvKeyChirho: text('content_kv_key_chirho'),
+	assignedToChirho: integer('assigned_to_chirho'),
+	resolvedByChirho: integer('resolved_by_chirho'),
+	resolutionNotesChirho: text('resolution_notes_chirho'),
+	createdAtChirho: text('created_at_chirho').notNull().default(''),
+	updatedAtChirho: text('updated_at_chirho'),
+	resolvedAtChirho: text('resolved_at_chirho')
+});
+
+// =============================================================================
+// FEATURE VOTES - Community feature voting
+// =============================================================================
+export const featureRequestsChirho = sqliteTable('feature_requests_chirho', {
+	idChirho: integer('id_chirho').primaryKey({ autoIncrement: true }),
+	titleChirho: text('title_chirho').notNull(),
+	descriptionChirho: text('description_chirho').notNull(),
+	categoryChirho: text('category_chirho', {
+		enum: ['platform', 'donors', 'orphanages', 'children', 'mobile', 'accessibility', 'other']
+	}).notNull().default('platform'),
+	statusChirho: text('status_chirho', {
+		enum: ['proposed', 'under_review', 'planned', 'in_progress', 'completed', 'declined']
+	}).notNull().default('proposed'),
+	voteCountChirho: integer('vote_count_chirho').notNull().default(0),
+	submittedByChirho: integer('submitted_by_chirho'),
+	adminResponseChirho: text('admin_response_chirho'),
+	createdAtChirho: text('created_at_chirho').notNull().default(''),
+	updatedAtChirho: text('updated_at_chirho')
+});
+
+export const featureVotesChirho = sqliteTable('feature_votes_chirho', {
+	idChirho: integer('id_chirho').primaryKey({ autoIncrement: true }),
+	featureIdChirho: integer('feature_id_chirho').notNull(),
+	userIdChirho: integer('user_id_chirho').notNull(),
+	voteTypeChirho: text('vote_type_chirho', {
+		enum: ['upvote', 'downvote']
+	}).notNull().default('upvote'),
+	createdAtChirho: text('created_at_chirho').notNull().default('')
+});
+
+// =============================================================================
 // RELATIONS
 // =============================================================================
 export const usersRelationsChirho = relations(usersChirho, ({ one, many }) => ({
@@ -237,6 +295,36 @@ export const donationsRelationsChirho = relations(donationsChirho, ({ one }) => 
 export const feedbackRelationsChirho = relations(feedbackChirho, ({ one }) => ({
 	userChirho: one(usersChirho, {
 		fields: [feedbackChirho.userIdChirho],
+		references: [usersChirho.idChirho]
+	})
+}));
+
+export const supportTicketsRelationsChirho = relations(supportTicketsChirho, ({ one }) => ({
+	userChirho: one(usersChirho, {
+		fields: [supportTicketsChirho.userIdChirho],
+		references: [usersChirho.idChirho]
+	}),
+	assignedToUserChirho: one(usersChirho, {
+		fields: [supportTicketsChirho.assignedToChirho],
+		references: [usersChirho.idChirho]
+	})
+}));
+
+export const featureRequestsRelationsChirho = relations(featureRequestsChirho, ({ one, many }) => ({
+	submitterChirho: one(usersChirho, {
+		fields: [featureRequestsChirho.submittedByChirho],
+		references: [usersChirho.idChirho]
+	}),
+	votesChirho: many(featureVotesChirho)
+}));
+
+export const featureVotesRelationsChirho = relations(featureVotesChirho, ({ one }) => ({
+	featureChirho: one(featureRequestsChirho, {
+		fields: [featureVotesChirho.featureIdChirho],
+		references: [featureRequestsChirho.idChirho]
+	}),
+	userChirho: one(usersChirho, {
+		fields: [featureVotesChirho.userIdChirho],
 		references: [usersChirho.idChirho]
 	})
 }));
