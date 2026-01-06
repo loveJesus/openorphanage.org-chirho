@@ -23,7 +23,7 @@
 
 <svelte:head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="theme-color" content="#0f172a" />
+	<meta name="theme-color" content="#f8fafc" />
 	<meta name="author" content="FaithStack" />
 
 	<!-- Open Graph / Facebook -->
@@ -62,39 +62,39 @@
 	Skip to main content
 </a>
 
-<div class="min-h-screen bg-slate-950 text-white">
+<div class="min-h-screen bg-slate-50 text-slate-900">
 	<!-- Navigation -->
-	<header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+	<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 shadow-sm">
 		<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" aria-label="Main navigation">
 			<a href="/" class="flex items-center gap-3" aria-label="OpenOrphanage - Home">
 				<div class="w-10 h-10 bg-gradient-to-br from-rose-500 to-teal-500 rounded-xl flex items-center justify-center" aria-hidden="true">
 					<span class="text-white text-xl" role="img" aria-hidden="true">🏠</span>
 				</div>
 				<span class="font-bold text-xl">
-					<span class="text-gradient-compassion">Open</span><span class="text-white">Orphanage</span>
+					<span class="text-gradient-compassion">Open</span><span class="text-slate-900">Orphanage</span>
 				</span>
 			</a>
 
 			<!-- Desktop Navigation -->
 			<div class="hidden md:flex items-center gap-6">
-				<a href="/orphanages-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Orphanages</a>
-				<a href="/feedback-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Feedback</a>
-				<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1" target="_blank" rel="noopener noreferrer">
+				<a href="/orphanages-chirho" class="text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1">Orphanages</a>
+				<a href="/feedback-chirho" class="text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1">Feedback</a>
+				<a href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho" class="text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1" target="_blank" rel="noopener noreferrer">
 					Support
 					<span class="sr-only">(opens in new tab)</span>
 				</a>
 
 				{#if userChirho}
-					<a href="/dashboard-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Dashboard</a>
+					<a href="/dashboard-chirho" class="text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1">Dashboard</a>
 					{#if userChirho.roleChirho === 'admin' || userChirho.roleChirho === 'super_admin'}
-						<a href="/admin-chirho" class="text-amber-400 hover:text-amber-300 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Admin</a>
+						<a href="/admin-chirho" class="text-amber-600 hover:text-amber-700 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1">Admin</a>
 					{/if}
-					<a href="/auth-chirho/logout-chirho" class="bg-slate-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors border border-slate-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950">
+					<a href="/auth-chirho/logout-chirho" class="bg-slate-100 text-slate-700 px-4 py-2 rounded-lg font-medium hover:bg-slate-200 transition-colors border border-slate-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white">
 						Logout
 					</a>
 				{:else}
-					<a href="/auth-chirho/login-chirho" class="text-slate-300 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1">Login</a>
-					<a href="/auth-chirho/register-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-950">
+					<a href="/auth-chirho/login-chirho" class="text-slate-600 hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white rounded px-2 py-1">Login</a>
+					<a href="/auth-chirho/register-chirho" class="bg-gradient-to-r from-rose-500 to-teal-500 text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-white">
 						Register
 					</a>
 				{/if}
@@ -102,7 +102,7 @@
 
 			<!-- Mobile menu button -->
 			<button
-				class="md:hidden p-2 text-slate-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-rose-500 rounded-lg"
+				class="md:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-rose-500 rounded-lg"
 				onclick={toggleMobileMenuChirho}
 				aria-expanded={mobileMenuOpenChirho}
 				aria-controls="mobile-menu"
@@ -124,14 +124,14 @@
 		{#if mobileMenuOpenChirho}
 			<div
 				id="mobile-menu"
-				class="md:hidden bg-slate-900 border-b border-slate-800 animate-slideDown"
+				class="md:hidden bg-white border-b border-slate-200 animate-slideDown shadow-lg"
 				role="navigation"
 				aria-label="Mobile navigation"
 			>
 				<div class="px-4 py-4 space-y-3">
 					<a
 						href="/orphanages-chirho"
-						class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+						class="block px-4 py-3 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
 						onclick={closeMobileMenuChirho}
 					>
 						<span aria-hidden="true" class="mr-2">🏠</span>
@@ -139,7 +139,7 @@
 					</a>
 					<a
 						href="/feedback-chirho"
-						class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+						class="block px-4 py-3 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
 						onclick={closeMobileMenuChirho}
 					>
 						<span aria-hidden="true" class="mr-2">💬</span>
@@ -147,20 +147,20 @@
 					</a>
 					<a
 						href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho"
-						class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+						class="block px-4 py-3 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
 						target="_blank"
 						rel="noopener noreferrer"
 					>
 						<span aria-hidden="true" class="mr-2">❤️</span>
 						Support
-						<span class="text-xs text-slate-500 ml-2">(external)</span>
+						<span class="text-xs text-slate-400 ml-2">(external)</span>
 					</a>
 
-					<div class="border-t border-slate-800 pt-3 mt-3">
+					<div class="border-t border-slate-200 pt-3 mt-3">
 						{#if userChirho}
 							<a
 								href="/dashboard-chirho"
-								class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+								class="block px-4 py-3 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
 								onclick={closeMobileMenuChirho}
 							>
 								<span aria-hidden="true" class="mr-2">📊</span>
@@ -169,7 +169,7 @@
 							{#if userChirho.roleChirho === 'admin' || userChirho.roleChirho === 'super_admin'}
 								<a
 									href="/admin-chirho"
-									class="block px-4 py-3 rounded-lg text-amber-400 hover:text-amber-300 hover:bg-slate-800 transition-colors"
+									class="block px-4 py-3 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-slate-100 transition-colors"
 									onclick={closeMobileMenuChirho}
 								>
 									<span aria-hidden="true" class="mr-2">🛡️</span>
@@ -178,7 +178,7 @@
 							{/if}
 							<a
 								href="/auth-chirho/logout-chirho"
-								class="block px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-slate-800 transition-colors mt-2"
+								class="block px-4 py-3 rounded-lg text-red-600 hover:text-red-700 hover:bg-slate-100 transition-colors mt-2"
 							>
 								<span aria-hidden="true" class="mr-2">🚪</span>
 								Logout
@@ -186,7 +186,7 @@
 						{:else}
 							<a
 								href="/auth-chirho/login-chirho"
-								class="block px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+								class="block px-4 py-3 rounded-lg text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors"
 								onclick={closeMobileMenuChirho}
 							>
 								Login
@@ -211,7 +211,7 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="bg-slate-900 border-t border-slate-800 py-12">
+	<footer class="bg-slate-100 border-t border-slate-200 py-12">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="grid md:grid-cols-4 gap-8">
 				<!-- Brand -->
@@ -220,42 +220,42 @@
 						<div class="w-8 h-8 bg-gradient-to-br from-rose-500 to-teal-500 rounded-lg flex items-center justify-center" aria-hidden="true">
 							<span aria-hidden="true">🏠</span>
 						</div>
-						<span class="font-bold">OpenOrphanage</span>
+						<span class="font-bold text-slate-900">OpenOrphanage</span>
 					</div>
-					<p class="text-slate-400 text-sm">
+					<p class="text-slate-600 text-sm">
 						Transparent orphan care administration. Part of FaithStack.
 					</p>
 				</div>
 
 				<!-- The Journey -->
 				<div>
-					<h2 class="font-semibold mb-4 text-rose-400">The Journey</h2>
-					<ul class="space-y-2 text-sm text-slate-400" aria-label="FaithStack Journey platforms">
-						<li><a href="https://openorphanage.org" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded" aria-current="page">1. OpenOrphanage</a></li>
-						<li><a href="https://makingfriends.faith" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">2. MakingFriends</a></li>
-						<li><a href="https://sonshinecoders.org" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">3. SonshineCoders</a></li>
-						<li><a href="https://koinainia.com" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">4. Koinainia</a></li>
-						<li><a href="https://perffection.com" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">5. Perffection</a></li>
+					<h2 class="font-semibold mb-4 text-rose-600">The Journey</h2>
+					<ul class="space-y-2 text-sm text-slate-600" aria-label="FaithStack Journey platforms">
+						<li><a href="https://openorphanage.org" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded" aria-current="page">1. OpenOrphanage</a></li>
+						<li><a href="https://makingfriends.faith" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">2. MakingFriends</a></li>
+						<li><a href="https://sonshinecoders.org" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">3. SonshineCoders</a></li>
+						<li><a href="https://koinainia.com" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">4. Koinainia</a></li>
+						<li><a href="https://perffection.com" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">5. Perffection</a></li>
 					</ul>
 				</div>
 
 				<!-- Legal -->
 				<div>
-					<h2 class="font-semibold mb-4 text-teal-400">Legal & Support</h2>
-					<ul class="space-y-2 text-sm text-slate-400" aria-label="Legal and support links">
-						<li><a href="/privacy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Privacy Policy</a></li>
-						<li><a href="/terms-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Terms of Service</a></li>
-						<li><a href="/cookie-policy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Cookie Policy</a></li>
-						<li><a href="/refund-policy-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Refund Policy</a></li>
-						<li><a href="/accessibility-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Accessibility</a></li>
-						<li><a href="/contact-fe" class="hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Contact Us</a></li>
+					<h2 class="font-semibold mb-4 text-teal-600">Legal & Support</h2>
+					<ul class="space-y-2 text-sm text-slate-600" aria-label="Legal and support links">
+						<li><a href="/privacy-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Privacy Policy</a></li>
+						<li><a href="/terms-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Terms of Service</a></li>
+						<li><a href="/cookie-policy-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Cookie Policy</a></li>
+						<li><a href="/refund-policy-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Refund Policy</a></li>
+						<li><a href="/accessibility-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Accessibility</a></li>
+						<li><a href="/contact-fe" class="hover:text-slate-900 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-500 rounded">Contact Us</a></li>
 					</ul>
 				</div>
 
 				<!-- Newsletter -->
 				<div>
-					<h2 class="font-semibold mb-4 text-amber-400">Stay Updated</h2>
-					<p class="text-slate-400 text-sm mb-4">Get occasional updates on orphanage stories and how you can help.</p>
+					<h2 class="font-semibold mb-4 text-amber-600">Stay Updated</h2>
+					<p class="text-slate-600 text-sm mb-4">Get occasional updates on orphanage stories and how you can help.</p>
 					<form
 						id="footer-newsletter-form"
 						class="space-y-2"
@@ -270,7 +270,7 @@
 
 							if (!turnstileTokenChirho && turnstileSiteKeyChirho) {
 								messageChirho.textContent = 'Please complete the security check.';
-								messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+								messageChirho.className = 'newsletter-message-chirho text-xs text-red-500 mt-2';
 								return;
 							}
 
@@ -286,7 +286,7 @@
 								.then(dataChirho => {
 									if (dataChirho.successChirho) {
 										messageChirho.textContent = dataChirho.messageChirho;
-										messageChirho.className = 'newsletter-message-chirho text-xs text-teal-400 mt-2';
+										messageChirho.className = 'newsletter-message-chirho text-xs text-teal-600 mt-2';
 										formChirho.reset();
 										// Reset Turnstile widget
 										if (window.turnstile) {
@@ -294,12 +294,12 @@
 										}
 									} else {
 										messageChirho.textContent = dataChirho.errorChirho || 'An error occurred';
-										messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+										messageChirho.className = 'newsletter-message-chirho text-xs text-red-500 mt-2';
 									}
 								})
 								.catch(() => {
 									messageChirho.textContent = 'An error occurred. Please try again.';
-									messageChirho.className = 'newsletter-message-chirho text-xs text-red-400 mt-2';
+									messageChirho.className = 'newsletter-message-chirho text-xs text-red-500 mt-2';
 								})
 								.finally(() => {
 									submitBtnChirho.disabled = false;
@@ -314,7 +314,7 @@
 								id="footer-newsletter-email"
 								placeholder="your@email.com"
 								required
-								class="flex-grow bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+								class="flex-grow bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
 							/>
 							<button
 								type="submit"
@@ -324,22 +324,22 @@
 							</button>
 						</div>
 						{#if turnstileSiteKeyChirho}
-							<div class="cf-turnstile mt-2" data-sitekey={turnstileSiteKeyChirho} data-theme="dark" data-size="compact"></div>
+							<div class="cf-turnstile mt-2" data-sitekey={turnstileSiteKeyChirho} data-theme="light" data-size="compact"></div>
 						{/if}
 						<p class="newsletter-message-chirho text-xs text-slate-500 mt-2">No spam, unsubscribe anytime.</p>
 					</form>
 				</div>
 			</div>
 
-			<div class="mt-8 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-				<p class="text-slate-500 text-sm">
-					In Jesus' Name. Part of <a href="https://stack.faith" class="text-rose-400 hover:text-rose-300 focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">FaithStack</a>.
+			<div class="mt-8 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+				<p class="text-slate-600 text-sm">
+					In Jesus' Name. Part of <a href="https://stack.faith" class="text-rose-600 hover:text-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 rounded">FaithStack</a>.
 				</p>
 				<a
 					href="https://kingdominvest.ing/campaigns-chirho/openorphanage-campaign-chirho"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-teal-500 hover:from-rose-600 hover:to-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+					class="inline-flex items-center gap-1.5 bg-gradient-to-r from-rose-500 to-teal-500 hover:from-rose-600 hover:to-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-slate-100"
 					aria-label="Support OpenOrphanage on KingdomInvest.ing (opens in new tab)"
 				>
 					<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -347,14 +347,14 @@
 					</svg>
 					Support Us
 				</a>
-				<div class="flex items-center gap-3 text-slate-500 text-sm">
+				<div class="flex items-center gap-3 text-slate-600 text-sm">
 					<p class="font-medium">JESUS CHRIST IS LORD</p>
-					<span class="text-slate-700">|</span>
-					<a href="https://perffection.com" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-colors" title="Perffection - Faith Excellence">fe</a>
-					<span class="text-slate-700">|</span>
-					<a href="https://lovejesus.software" target="_blank" rel="noopener noreferrer" class="hover:text-rose-400 transition-colors" title="loveJesus Software">loveJesus</a>
-					<span class="text-slate-700">|</span>
-					<a href="http://jesusfilm.org/watch/jesus.html/english.html" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400 transition-colors text-lg" title="Watch the Jesus Film">☧</a>
+					<span class="text-slate-300">|</span>
+					<a href="https://perffection.com" target="_blank" rel="noopener noreferrer" class="hover:text-rose-600 transition-colors" title="Perffection - Faith Excellence">fe</a>
+					<span class="text-slate-300">|</span>
+					<a href="https://lovejesus.software" target="_blank" rel="noopener noreferrer" class="hover:text-rose-600 transition-colors" title="loveJesus Software">loveJesus</a>
+					<span class="text-slate-300">|</span>
+					<a href="http://jesusfilm.org/watch/jesus.html/english.html" target="_blank" rel="noopener noreferrer" class="hover:text-amber-600 transition-colors text-lg" title="Watch the Jesus Film">☧</a>
 				</div>
 			</div>
 		</div>

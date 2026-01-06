@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* OpenOrphanage Theme - Warm, trustworthy, transparent */
+/* OpenOrphanage Theme - Warm, trustworthy, transparent - LIGHT MODE */
 :root {
 	--color-primary: #e11d48; /* Rose for compassion */
 	--color-secondary: #0d9488; /* Teal for trust */
@@ -19,40 +19,40 @@ html {
 }
 
 body {
-	background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+	background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
 	min-height: 100vh;
 }
 
-/* Compassion gradient */
+/* Compassion gradient - works on both light/dark */
 .text-gradient-compassion {
-	background: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #fb7185 100%);
+	background: linear-gradient(135deg, #be123c 0%, #e11d48 50%, #f43f5e 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 }
 
-/* Trust gradient */
+/* Trust gradient - works on both light/dark */
 .text-gradient-trust {
-	background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);
+	background: linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #14b8a6 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 }
 
-/* Transparency card effect */
+/* Transparency card effect - light mode */
 .card-transparent {
-	background: rgba(255, 255, 255, 0.03);
+	background: rgba(255, 255, 255, 0.7);
 	backdrop-filter: blur(10px);
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-/* Glow effects */
+/* Glow effects - softer for light mode */
 .glow-rose {
-	box-shadow: 0 0 40px rgba(225, 29, 72, 0.3);
+	box-shadow: 0 0 40px rgba(225, 29, 72, 0.2);
 }
 
 .glow-teal {
-	box-shadow: 0 0 40px rgba(13, 148, 136, 0.3);
+	box-shadow: 0 0 40px rgba(13, 148, 136, 0.2);
 }
 
 /* Card hover animation */
@@ -62,12 +62,12 @@ body {
 
 .card-hover:hover {
 	transform: translateY(-4px);
-	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Animated background */
+/* Animated background - light mode */
 .bg-gradient-animated {
-	background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #0f172a 50%, #1e1b4b 75%, #0f172a 100%);
+	background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 25%, #fce7f3 50%, #e0f2fe 75%, #f8fafc 100%);
 	background-size: 400% 400%;
 	animation: gradient-shift 15s ease infinite;
 }
